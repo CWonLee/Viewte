@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.login.LoginActivity">
+    android:background="@color/colorBackgroundDark"
+    tools:context=".src.login.LoginActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="시작하기"
+        android:fontFamily="@font/notosanskr_black"
+        android:textColor="@color/colorWhite"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="소셜미디어로 간편하게 가입해 보세요!"
+        android:textColor="@color/colorWhite"
+        android:textSize="17sp"
+        android:fontFamily="@font/notosans_bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="84dp"/>gy
 
     <com.kakao.usermgmt.LoginButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginTop="40dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

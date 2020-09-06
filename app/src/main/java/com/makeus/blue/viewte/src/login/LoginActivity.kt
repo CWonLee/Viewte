@@ -13,6 +13,7 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
 import com.makeus.blue.viewte.R
+import com.makeus.blue.viewte.src.join.JoinActivity
 import com.makeus.blue.viewte.src.login.models.RequestLogin
 import com.makeus.blue.viewte.src.login.models.ResponseLogin
 import retrofit2.Call
@@ -83,17 +84,16 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<ResponseLogin>
             ) {
                 val responseLogin = response.body()
-                if (responseLogin != null) {
-                    println("message = ${responseLogin.getMessage()}")
-                }
-                if (responseLogin != null) {
-                    println("code = ${responseLogin.getCode()}")
+
+                if (responseLogin!!.IsSuccess() && responseLogin.getCode() == 201) {
+                    var intent = Intent(this@LoginActivity, JoinActivity::class.java)
+                    startActivity(intent)
                 }
             }
 
             override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
                 // 실패
-                println("실패?")
+
             }
         })
     }

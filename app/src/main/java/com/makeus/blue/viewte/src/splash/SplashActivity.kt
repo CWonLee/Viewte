@@ -5,9 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.makeus.blue.viewte.R
+import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.login.LoginActivity
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
 
     val SPLASH_TIME_OUT: Long = 3000 //3초간 보여 주고 넘어 간다.
 

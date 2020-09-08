@@ -4,27 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.join.JoinActivity"
+    tools:context=".src.join.Join2Activity"
     android:background="@color/colorBackgroundDark">
 
     <TextView
-        android:id="@+id/join_tv_hello"
+        android:id="@+id/join2_tv_hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="32dp"
         android:layout_marginLeft="43dp"
-        android:fontFamily="@font/notosanskr_black"
-        android:textSize="24sp"
         android:textColor="@color/colorWhite"
-        android:text="안녕하세요!\n당신의 이름을 알고 싶어요."/>
+        android:textSize="24sp"
+        android:fontFamily="@font/notosanskr_black"/>
 
     <TextView
-        android:id="@+id/join_tv_name"
+        android:id="@+id/join2_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/join_tv_hello"
+        app:layout_constraintTop_toBottomOf="@+id/join2_tv_hello"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="96dp"
         android:layout_marginLeft="43dp"
@@ -35,10 +34,10 @@
         android:includeFontPadding="false"/>
 
     <EditText
-        android:id="@+id/join_et_name"
+        android:id="@+id/join2_et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/join_tv_name"
+        app:layout_constraintTop_toBottomOf="@id/join2_tv_name"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="40dp"
@@ -51,11 +50,11 @@
         android:includeFontPadding="false"/>
 
     <ImageView
-        android:id="@+id/join_iv_next"
+        android:id="@+id/join2_iv_next"
         android:layout_width="88dp"
         android:layout_height="36dp"
         android:src="@drawable/asset_join_next_btn"
-        app:layout_constraintTop_toBottomOf="@+id/join_et_name"
+        app:layout_constraintTop_toBottomOf="@+id/join2_et_name"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="48dp"
         android:layout_marginRight="46dp"/>

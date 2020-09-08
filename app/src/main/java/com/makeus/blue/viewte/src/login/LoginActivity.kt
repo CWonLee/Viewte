@@ -13,6 +13,7 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
 import com.makeus.blue.viewte.R
+import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.join.JoinActivity
 import com.makeus.blue.viewte.src.login.models.RequestLogin
 import com.makeus.blue.viewte.src.login.models.ResponseLogin
@@ -20,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     private var callback: SessionCallback = SessionCallback()
 
@@ -87,6 +88,7 @@ class LoginActivity : AppCompatActivity() {
 
                 if (responseLogin!!.IsSuccess() && responseLogin.getCode() == 201) {
                     var intent = Intent(this@LoginActivity, JoinActivity::class.java)
+                    intent.putExtra("oauthid", token)
                     startActivity(intent)
                 }
             }

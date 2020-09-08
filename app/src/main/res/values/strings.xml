@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Viewte</string>
+    <string name="loading">로딩중입니다.</string>
+    <string name="network_error">네트워크 연결이 원활하지 않습니다.</string>
     <string name="KAKAO_APP_KEY">d5115574c3df6f69a5011989a431965b</string>
 </resources>

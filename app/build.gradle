@@ -57,5 +57,12 @@ dependencies {
     // interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
+    // Expandable Layout Library
+    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
 
+    // Material Navigation View Library
+    implementation 'com.shreyaspatil:MaterialNavigationView:1.1'
+
+    // Material Design Library
+    implementation 'com.google.android.material:material:1.0.0'
 }

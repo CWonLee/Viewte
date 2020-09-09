@@ -7,4 +7,6 @@
     <color name="colorBackgroundDark">#1D1D1D</color>
     <color name="colorLightishBlue">#456eff</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGrey">#b0b0b0</color>
 </resources>

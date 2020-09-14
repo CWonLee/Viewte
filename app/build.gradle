@@ -68,4 +68,7 @@ dependencies {
 
     // Dialog Plus
     implementation 'com.orhanobut:dialogplus:1.11@aar'
+
+    // KAKAO STT
+    implementation group: 'com.kakao.sdk', name: 'newtone', version: '6.0.1'
 }

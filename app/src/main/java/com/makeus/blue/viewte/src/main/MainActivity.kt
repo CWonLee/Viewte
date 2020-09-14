@@ -1,6 +1,7 @@
 package com.makeus.blue.viewte.src.main
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.github.aakira.expandablelayout.ExpandableRelativeLayout
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.main.models.CategoryItem
+import com.makeus.blue.viewte.src.record.RecordActivity
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
@@ -38,6 +40,7 @@ class MainActivity : BaseActivity() {
     private lateinit var mClCategoryExpand : ConstraintLayout
     private var mCategoryExpand : Boolean = false
     private lateinit var mClSearch: ConstraintLayout
+    private lateinit var mClRecord: ConstraintLayout
 
     @SuppressLint("WrongConstant")
     @RequiresApi(Build.VERSION_CODES.P)
@@ -54,6 +57,7 @@ class MainActivity : BaseActivity() {
         mElCategory = findViewById(R.id.main_el_category)
         mClCategoryExpand = findViewById(R.id.main_cl_category_expand)
         mClSearch = findViewById(R.id.main_cl_search)
+        mClRecord = findViewById(R.id.main_cl_mic)
 
 //        // get KeyHash
 //        try {
@@ -115,7 +119,12 @@ class MainActivity : BaseActivity() {
             override fun onSingleClick(v: View) {
                 showSearchDialog()
             }
-
+        })
+        mClRecord.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@MainActivity, RecordActivity::class.java)
+                startActivity(intent)
+            }
         })
     }
 

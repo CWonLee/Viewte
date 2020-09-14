@@ -3,6 +3,9 @@
     package="com.makeus.blue.viewte">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".src.ApplicationClass"
@@ -13,11 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".src.join.Join2Activity"></activity>
+        <activity android:name=".src.record.RecordActivity"></activity>
+        <activity android:name=".src.join.Join2Activity" />
         <activity android:name=".src.join.JoinActivity" />
-        <activity android:name=".src.splash.SplashActivity">
-
-        </activity>
+        <activity android:name=".src.splash.SplashActivity"></activity>
         <activity android:name=".src.login.LoginActivity" />
         <activity android:name=".src.main.MainActivity">
             <intent-filter>

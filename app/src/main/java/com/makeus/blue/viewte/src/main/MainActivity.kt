@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -17,6 +18,9 @@ import com.github.aakira.expandablelayout.ExpandableRelativeLayout
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.main.models.CategoryItem
+import com.orhanobut.dialogplus.DialogPlus
+import com.orhanobut.dialogplus.Holder
+import com.orhanobut.dialogplus.ViewHolder
 
 class MainActivity : BaseActivity() {
 
@@ -33,6 +37,7 @@ class MainActivity : BaseActivity() {
     private lateinit var mElCategory : ExpandableRelativeLayout
     private lateinit var mClCategoryExpand : ConstraintLayout
     private var mCategoryExpand : Boolean = false
+    private lateinit var mClSearch: ConstraintLayout
 
     @SuppressLint("WrongConstant")
     @RequiresApi(Build.VERSION_CODES.P)
@@ -48,6 +53,7 @@ class MainActivity : BaseActivity() {
         mRvCategoryBottom = findViewById(R.id.main_rv_category_bottom)
         mElCategory = findViewById(R.id.main_el_category)
         mClCategoryExpand = findViewById(R.id.main_cl_category_expand)
+        mClSearch = findViewById(R.id.main_cl_search)
 
 //        // get KeyHash
 //        try {
@@ -79,12 +85,14 @@ class MainActivity : BaseActivity() {
         mRvCategoryTop.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRvCategoryTop.setHasFixedSize(true)
         mRvCategoryTop.adapter = mMainCategoryAdapter
+        mRvCategoryTop.isNestedScrollingEnabled = false
 
 
         mMainCategoryBottomAdapter = MainCategoryAdapter(mCategoryItemBottom)
         mRvCategoryBottom.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRvCategoryBottom.setHasFixedSize(true)
         mRvCategoryBottom.adapter = mMainCategoryBottomAdapter
+        mRvCategoryBottom.isNestedScrollingEnabled = false
 
         mIvMenu.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
@@ -103,5 +111,33 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+        mClSearch.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                showSearchDialog()
+            }
+
+        })
+    }
+
+    override fun onBackPressed() {
+        if (mDl.isDrawerOpen(GravityCompat.START)) {
+            mDl.closeDrawer(GravityCompat.START)
+        }
+        else
+            super.onBackPressed()
+    }
+
+    private fun showSearchDialog() {
+        val searchGravity: Int = Gravity.TOP
+        val holder: Holder
+
+        holder = ViewHolder(R.layout.dialog_search)
+
+        val builder = DialogPlus.newDialog(this).apply {
+            setContentHolder(holder)
+            isCancelable = true
+            setGravity(searchGravity)
+        }
+        builder.create().show()
     }
 }

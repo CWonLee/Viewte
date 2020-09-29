@@ -2,17 +2,15 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_dl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.main.MainActivity"
+    android:id="@+id/category_dl"
+    tools:context=".src.category.CategoryActivity"
     android:background="@color/colorBackgroundDark">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".src.main.MainActivity"
-        android:background="@color/colorBackgroundDark"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +18,7 @@
             android:layout_height="66dp">
 
             <ImageView
-                android:id="@+id/main_iv_menu"
+                android:id="@+id/category_iv_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_menu"
@@ -30,10 +28,10 @@
                 android:layout_marginLeft="17dp"/>
 
             <ImageView
-                android:id="@+id/main_iv_plus"
+                android:id="@+id/category_iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_plus"
+                android:src="@drawable/arrow_back"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -44,127 +42,126 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:fillViewport="true">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="@drawable/theme_category_top"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp">
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="31dp"
+                    android:layout_marginBottom="10dp">
 
-                    <TextView
-                        android:id="@+id/main_tv_hello"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="26sp"
-                        android:text="안녕하세요 테오님!"
-                        android:fontFamily="@font/notosans_bold"
-                        android:layout_marginLeft="21dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:includeFontPadding="false"/>
-                    <TextView
-                        android:id="@+id/main_tv_interview_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp"
-                        android:text="뷰트와 함께한 인터뷰, 193분"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/notosanskr_regular"
-                        android:layout_marginLeft="21dp"
-                        app:layout_constraintTop_toBottomOf="@+id/main_tv_hello"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:includeFontPadding="false"/>
-
-                    <ImageView
-                        android:id="@+id/main_iv_profile"
-                        android:layout_width="66dp"
-                        android:layout_height="66dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginRight="24dp"
-                        android:src="@color/colorWhite"
-                        android:background="@drawable/theme_profile"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/theme_category_top"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp"
-                    android:layout_marginTop="20dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/main_rv_category_top"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginLeft="11dp"
-                        android:layout_marginRight="11dp"/>
+                        android:background="@color/colorBlack">
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/category_rv_top"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:layout_marginTop="41dp" />
 
-                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-                android:id="@+id/main_el_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:ael_expanded="false"
-                app:ael_duration="300"
-                app:ael_interpolator="accelerate"
-                app:ael_orientation="vertical">
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorGrey2"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/main_rv_category_bottom"
+                    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                        android:id="@+id/category_el"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginLeft="11dp"
-                        android:layout_marginRight="11dp"/>
+                        app:ael_expanded="false"
+                        app:ael_duration="300"
+                        app:ael_interpolator="accelerate"
+                        app:ael_orientation="vertical">
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorBlack">
 
-            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/category_rv_bottom"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+1
+                    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/category_cl_expand"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:background="@drawable/theme_category_bottom_black">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="13dp"
+                            android:src="@drawable/ic_down_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/main_cl_category_expand"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
-                    android:background="@drawable/theme_category_bottom"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp">
+                    android:layout_height="62dp"
+                    android:background="@drawable/theme_main_category_item"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
 
-                    <ImageView
-                        android:id="@+id/main_iv_category_arrow"
+                    <TextView
+                        android:id="@+id/category_tv_big_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_down_arrow"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginBottom="12dp"
+                        android:textSize="17sp"
+                        android:textColor="@color/colorWhite"
+                        android:fontFamily="@font/notosans_bold"
+                        android:includeFontPadding="false"
+                        android:text="요식업 인사이트"/>
+
+                    <TextView
+                        android:id="@+id/category_tv_big_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginBottom="11dp"/>
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="27dp"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/notosanskr_regular"
+                        android:includeFontPadding="false"
+                        android:text="2개, 15분"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
+            </FrameLayout>
 
         </ScrollView>
 
@@ -174,7 +171,7 @@
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/main_cl_home"
+                android:id="@+id/category_cl_home"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -204,7 +201,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/main_cl_search"
+                android:id="@+id/category_cl_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -233,7 +230,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/main_cl_mic"
+                android:id="@+id/category_cl_mic"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -262,7 +259,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/main_cl_trash"
+                android:id="@+id/category_cl_trash"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -291,7 +288,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/main_cl_setting"
+                android:id="@+id/category_cl_setting"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -325,7 +322,7 @@
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/main_nav"
+        android:id="@+id/category_nav"
         android:layout_width="215dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
@@ -347,7 +344,7 @@
                     android:background="@color/colorBlack">
 
                     <TextView
-                        android:id="@+id/main_tv_nav_text"
+                        android:id="@+id/category_tv_nav_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
@@ -362,7 +359,7 @@
                         android:textColor="@color/colorWhite"/>
 
                     <TextView
-                        android:id="@+id/main_tv_nav_record_count"
+                        android:id="@+id/category_tv_nav_record_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@+id/main_tv_nav_text"
@@ -384,7 +381,7 @@
                     android:background="@color/colorBackgroundDark">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/main_cl_nav_set"
+                        android:id="@+id/category_cl_nav_set"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="28dp"
@@ -406,7 +403,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/main_cl_nav_record_memo"
+                        android:id="@+id/category_cl_nav_record_memo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
@@ -427,7 +424,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/main_cl_nav_trash"
+                        android:id="@+id/category_cl_nav_trash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
@@ -453,7 +450,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/main_iv_nav_profile"
+                android:id="@+id/category_iv_nav_profile"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_gravity="top|left"

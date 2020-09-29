@@ -1,4 +1,4 @@
-package com.makeus.blue.viewte.src.login
+package com.makeus.blue.viewte.src.login.api
 
 import com.makeus.blue.viewte.src.ApplicationClass
 import com.makeus.blue.viewte.src.ApplicationClass.Companion.BASE_URL

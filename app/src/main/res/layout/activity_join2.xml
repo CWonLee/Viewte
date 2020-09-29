@@ -34,7 +34,7 @@
         android:includeFontPadding="false"/>
 
     <EditText
-        android:id="@+id/join2_et_name"
+        android:id="@+id/join2_et_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/join2_tv_name"
@@ -54,7 +54,7 @@
         android:layout_width="88dp"
         android:layout_height="36dp"
         android:src="@drawable/asset_join_next_btn"
-        app:layout_constraintTop_toBottomOf="@+id/join2_et_name"
+        app:layout_constraintTop_toBottomOf="@+id/join2_et_category"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="48dp"
         android:layout_marginRight="46dp"/>

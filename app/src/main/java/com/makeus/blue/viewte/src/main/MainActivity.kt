@@ -85,18 +85,20 @@ class MainActivity : BaseActivity() {
             mCategoryItemBottom.add(CategoryItem("새 카테고리를 만들어주세요", 0, 0))
         }
 
-        mMainCategoryAdapter = MainCategoryAdapter(mCategoryItemTop)
+        mMainCategoryAdapter = MainCategoryAdapter(mCategoryItemTop, this)
         mRvCategoryTop.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRvCategoryTop.setHasFixedSize(true)
         mRvCategoryTop.adapter = mMainCategoryAdapter
         mRvCategoryTop.isNestedScrollingEnabled = false
 
 
-        mMainCategoryBottomAdapter = MainCategoryAdapter(mCategoryItemBottom)
+        mMainCategoryBottomAdapter = MainCategoryAdapter(mCategoryItemBottom, this)
         mRvCategoryBottom.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRvCategoryBottom.setHasFixedSize(true)
         mRvCategoryBottom.adapter = mMainCategoryBottomAdapter
         mRvCategoryBottom.isNestedScrollingEnabled = false
+
+
 
         mIvMenu.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {

@@ -30,7 +30,7 @@
         android:layout_marginLeft="43dp"
         android:textColor="@color/colorWhite"
         android:textSize="12sp"
-        android:text="인터뷰 카테고리를 만들어주세요!"
+        android:text="이름을 적어주세요! 최대 네글자까지 가능합니다."
         android:fontFamily="@font/notosanskr_regular"
         android:includeFontPadding="false"/>
 

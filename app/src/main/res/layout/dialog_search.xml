@@ -21,6 +21,7 @@
         android:paddingRight="21dp"
         android:drawablePadding="27dp"
         android:hint="Search hint"
+        android:textColor="@color/colorBlack"
         android:textColorHint="#9e9e9e"/>
 
 

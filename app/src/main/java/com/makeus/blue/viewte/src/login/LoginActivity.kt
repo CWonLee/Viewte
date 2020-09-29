@@ -2,7 +2,6 @@ package com.makeus.blue.viewte.src.login
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.kakao.auth.ISessionCallback
@@ -13,10 +12,13 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
 import com.makeus.blue.viewte.R
+import com.makeus.blue.viewte.src.ApplicationClass
 import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.join.JoinActivity
+import com.makeus.blue.viewte.src.login.api.LoginAPI
 import com.makeus.blue.viewte.src.login.models.RequestLogin
 import com.makeus.blue.viewte.src.login.models.ResponseLogin
+import com.makeus.blue.viewte.src.main.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -77,13 +79,12 @@ class LoginActivity : BaseActivity() {
     }
 
     fun login(token: String) {
+        showProgressDialog()
         val api = LoginAPI.create()
 
         api.postLogin(RequestLogin(token)).enqueue(object : Callback<ResponseLogin> {
-            override fun onResponse(
-                call: Call<ResponseLogin>,
-                response: Response<ResponseLogin>
-            ) {
+            override fun onResponse(call: Call<ResponseLogin>, response: Response<ResponseLogin>) {
+                hideProgressDialog()
                 val responseLogin = response.body()
 
                 if (responseLogin!!.IsSuccess() && responseLogin.getCode() == 201) {
@@ -91,11 +92,17 @@ class LoginActivity : BaseActivity() {
                     intent.putExtra("oauthid", token)
                     startActivity(intent)
                 }
+                else if (responseLogin!!.IsSuccess() && responseLogin.getCode() == 200) {
+                    var intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    ApplicationClass.prefs.myEditText = responseLogin.getJwt()
+                    showCustomToast(responseLogin.getMessage())
+                    startActivity(intent)
+                }
             }
 
             override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
-                // 실패
-
+                hideProgressDialog()
+                showCustomToast(resources.getString(R.string.network_error))
             }
         })
     }

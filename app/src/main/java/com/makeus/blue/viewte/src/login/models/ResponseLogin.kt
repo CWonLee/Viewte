@@ -6,6 +6,9 @@ data class ResponseLogin(
     @SerializedName("jwt")
     private var jwt: String,
 
+    @SerializedName("oauthid")
+    private var oauthid: String,
+
     @SerializedName("isSuccess")
     private var isSuccess: Boolean,
 
@@ -29,5 +32,9 @@ data class ResponseLogin(
 
     fun getMessage(): String {
         return message
+    }
+
+    fun getOauthid(): String {
+        return oauthid
     }
 }

@@ -89,7 +89,7 @@ class LoginActivity : BaseActivity() {
 
                 if (responseLogin!!.IsSuccess() && responseLogin.getCode() == 201) {
                     var intent = Intent(this@LoginActivity, JoinActivity::class.java)
-                    intent.putExtra("oauthid", token)
+                    intent.putExtra("oauthid", responseLogin.getOauthid())
                     startActivity(intent)
                 }
                 else if (responseLogin!!.IsSuccess() && responseLogin.getCode() == 200) {

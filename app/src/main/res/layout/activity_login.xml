@@ -26,13 +26,13 @@
         android:textSize="17sp"
         android:fontFamily="@font/notosans_bold"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="84dp"/>gy
+        android:layout_marginTop="84dp"/>
 
     <com.kakao.usermgmt.LoginButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="65dp"
-        android:layout_marginRight="65dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:layout_marginTop="40dp"/>
 
 </LinearLayout>

@@ -7,5 +7,8 @@ data class RequestJoin(
     private var name: String,
 
     @SerializedName("oauthid")
-    private var oauthid: String
+    private var oauthid: String,
+
+    @SerializedName("c_title")
+    private var c_title: String
 )

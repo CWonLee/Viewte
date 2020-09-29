@@ -35,6 +35,7 @@ class JoinActivity : BaseActivity() {
                         var intent = Intent(this@JoinActivity, Join2Activity::class.java)
                         intent.putExtra("oauthid", getIntent().getStringExtra("oauthid"))
                         intent.putExtra("name", mEtName.text.toString())
+                        println("join1에서 oauth = " + getIntent().getStringExtra("oauthid"))
                         startActivity(intent)
                     }
                 }

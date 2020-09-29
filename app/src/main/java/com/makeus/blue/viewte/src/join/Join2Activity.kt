@@ -9,11 +9,8 @@ import android.widget.TextView
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.ApplicationClass
 import com.makeus.blue.viewte.src.BaseActivity
-import com.makeus.blue.viewte.src.join.api.CategoryAPI
 import com.makeus.blue.viewte.src.join.api.JoinAPI
-import com.makeus.blue.viewte.src.join.models.RequestCategory
 import com.makeus.blue.viewte.src.join.models.RequestJoin
-import com.makeus.blue.viewte.src.join.models.ResponseCategory
 import com.makeus.blue.viewte.src.join.models.ResponseJoin
 import com.makeus.blue.viewte.src.login.api.LoginAPI
 import com.makeus.blue.viewte.src.login.models.RequestLogin
@@ -57,7 +54,8 @@ class Join2Activity : BaseActivity() {
 
         val joinApi = JoinAPI.create()
 
-        joinApi.postJoin(RequestJoin(intent.getStringExtra("name"), intent.getStringExtra("oauthid"))).enqueue(object : Callback<ResponseJoin> {
+        println("join2 = " + intent.getStringExtra("oauthid"))
+        joinApi.postJoin(RequestJoin(intent.getStringExtra("name"), intent.getStringExtra("oauthid"), mEtCategory.text.toString())).enqueue(object : Callback<ResponseJoin> {
             override fun onFailure(call: Call<ResponseJoin>, t: Throwable) {
                 hideProgressDialog()
                 showCustomToast(resources.getString(R.string.network_error))
@@ -65,67 +63,17 @@ class Join2Activity : BaseActivity() {
 
             override fun onResponse(call: Call<ResponseJoin>, response: Response<ResponseJoin>) {
                 val responseJoin = response.body()
-                if (responseJoin!!.IsSuccess() && responseJoin.getCode() == 100) {
+                if (responseJoin!!.IsSuccess() && responseJoin.getCode() == 200) {
                     showCustomToast(responseJoin.getMessage())
-                    login()
-                }
-                else {
-                    hideProgressDialog()
-                    showCustomToast(responseJoin.getMessage())
-                }
-            }
-        })
-    }
-
-    fun login() {
-        val loginApi = LoginAPI.create()
-
-        loginApi.postLogin(RequestLogin(intent.getStringExtra("oauthid"))).enqueue(object : Callback<ResponseLogin> {
-            override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
-                hideProgressDialog()
-                showCustomToast(resources.getString(R.string.network_error))
-            }
-
-            override fun onResponse(call: Call<ResponseLogin>, response: Response<ResponseLogin>) {
-                val responseLogin = response.body()
-
-                if (responseLogin!!.IsSuccess() && responseLogin.getCode() == 200) {
-                    ApplicationClass.prefs.myEditText = responseLogin.getJwt()
-                    category()
-                }
-                else {
-                    hideProgressDialog()
-                    showCustomToast(responseLogin.getMessage())
-                }
-            }
-        })
-    }
-
-    fun category() {
-        val categoryApi = CategoryAPI.create()
-
-        categoryApi.postCategory(RequestCategory(mEtCategory.text.toString())).enqueue(object : Callback<ResponseCategory> {
-            override fun onFailure(call: Call<ResponseCategory>, t: Throwable) {
-                hideProgressDialog()
-                showCustomToast(resources.getString(R.string.network_error))
-            }
-
-            override fun onResponse(
-                call: Call<ResponseCategory>,
-                response: Response<ResponseCategory>
-            ) {
-                val responseCategory = response.body()
-                if (responseCategory!!.IsSuccess() && responseCategory.getCode() == 100) {
-                    hideProgressDialog()
+                    ApplicationClass.prefs.myEditText = responseJoin.getJwt()
                     var intent = Intent(this@Join2Activity, MainActivity::class.java)
                     startActivity(intent)
                 }
                 else {
                     hideProgressDialog()
-                    showCustomToast(responseCategory.getMessage())
+                    showCustomToast(responseJoin.getMessage())
                 }
             }
-
         })
     }
 }

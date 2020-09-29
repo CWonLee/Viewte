@@ -14,7 +14,7 @@ class KakaoSDKAdapter : KakaoAdapter() {
                 // KAKAO_TALK_EXCLUDE_NATIVE_LOGIN : 카카오톡 로그인 타입과 함께
                 //                                   계정생성을 위한 버튼을 함께 제공
                 // KAKAO_LOGIN_ALL : 모든 로그인 방식을 제공
-                return arrayOf(AuthType.KAKAO_TALK)
+                return arrayOf(AuthType.KAKAO_ACCOUNT)
             }
 
             override fun isUsingWebviewTimer(): Boolean {

@@ -2,7 +2,6 @@ package com.makeus.blue.viewte.src.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
@@ -18,13 +17,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
+import com.makeus.blue.viewte.src.main.interfaces.AddCategoryAPI
+import com.makeus.blue.viewte.src.main.interfaces.GetCategoryAPI
+import com.makeus.blue.viewte.src.main.interfaces.MainActivityView
 import com.makeus.blue.viewte.src.main.models.CategoryItem
+import com.makeus.blue.viewte.src.main.models.RequestAddCategory
+import com.makeus.blue.viewte.src.main.models.ResponseAddCategory
+import com.makeus.blue.viewte.src.main.models.ResponseGetCategory
 import com.makeus.blue.viewte.src.record.RecordActivity
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), MainActivityView {
 
     private lateinit var mDl: DrawerLayout
     private lateinit var mIvMenu: ImageView
@@ -34,6 +42,8 @@ class MainActivity : BaseActivity() {
     private lateinit var mRvCategoryBottom: RecyclerView
     private lateinit var mMainCategoryAdapter : MainCategoryAdapter
     private lateinit var mMainCategoryBottomAdapter : MainCategoryAdapter
+    private var mTempCategoryItem : ArrayList<CategoryItem> = ArrayList()
+    private var mTempCategoryItemBottom : ArrayList<CategoryItem> = ArrayList()
     private var mCategoryItemTop : ArrayList<CategoryItem> = ArrayList()
     private var mCategoryItemBottom : ArrayList<CategoryItem> = ArrayList()
     private lateinit var mElCategory : ExpandableRelativeLayout
@@ -41,6 +51,7 @@ class MainActivity : BaseActivity() {
     private var mCategoryExpand : Boolean = false
     private lateinit var mClSearch: ConstraintLayout
     private lateinit var mClRecord: ConstraintLayout
+    private lateinit var mIvAddCategory: ImageView
 
     @SuppressLint("WrongConstant")
     @RequiresApi(Build.VERSION_CODES.P)
@@ -58,6 +69,7 @@ class MainActivity : BaseActivity() {
         mClCategoryExpand = findViewById(R.id.main_cl_category_expand)
         mClSearch = findViewById(R.id.main_cl_search)
         mClRecord = findViewById(R.id.main_cl_mic)
+        mIvAddCategory = findViewById(R.id.main_iv_plus)
 
 //        // get KeyHash
 //        try {
@@ -78,12 +90,6 @@ class MainActivity : BaseActivity() {
         mIvProfile.clipToOutline = true
         mElCategory.collapse()
 
-        for(i in 1..3) {
-            mCategoryItemTop.add(CategoryItem("새 카테고리를 만들어주세요", 0, 0))
-        }
-        for(i in 1.. 8) {
-            mCategoryItemBottom.add(CategoryItem("새 카테고리를 만들어주세요", 0, 0))
-        }
 
         mMainCategoryAdapter = MainCategoryAdapter(mCategoryItemTop, this)
         mRvCategoryTop.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
@@ -98,7 +104,27 @@ class MainActivity : BaseActivity() {
         mRvCategoryBottom.adapter = mMainCategoryBottomAdapter
         mRvCategoryBottom.isNestedScrollingEnabled = false
 
+        /*
+        for (i in 1.. 3) {
+            mCategoryItemTop.add(CategoryItem("qq", 0, 0, 0))
+        }
+        for (i in 1.. 2) {
+            mCategoryItemBottom.add(CategoryItem("qq", 0, 0, 0))
+        }
 
+         */
+
+        getCategory()
+
+        for (i in mTempCategoryItem) {
+            mCategoryItemTop.add((i))
+        }
+        for (i in mTempCategoryItemBottom) {
+            mCategoryItemBottom.add(i)
+        }
+
+        mMainCategoryAdapter.notifyDataSetChanged()
+        mMainCategoryBottomAdapter.notifyDataSetChanged()
 
         mIvMenu.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
@@ -128,6 +154,18 @@ class MainActivity : BaseActivity() {
                 startActivity(intent)
             }
         })
+        mIvAddCategory.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                var dialogAddCategory = DialogAddCategory(this@MainActivity, this@MainActivity)
+                dialogAddCategory.show()
+                val window = dialogAddCategory.getWindow()
+                val width = (resources.displayMetrics.widthPixels * 0.80).toInt()
+                window?.setLayout(width, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+                window?.setBackgroundDrawable(resources.getDrawable(R.drawable.theme_grey2_radius20))
+            }
+        })
+
+
     }
 
     override fun onBackPressed() {
@@ -150,5 +188,72 @@ class MainActivity : BaseActivity() {
             setGravity(searchGravity)
         }
         builder.create().show()
+    }
+
+    override fun addCategory(name: String) {
+        showProgressDialog()
+        val api = AddCategoryAPI.create()
+
+        api.postLogin(RequestAddCategory(name)).enqueue(object : Callback<ResponseAddCategory> {
+            override fun onResponse(call: Call<ResponseAddCategory>, response: Response<ResponseAddCategory>) {
+                hideProgressDialog()
+                var responseAddCategory = response.body()
+
+                if (responseAddCategory!!.IsSuccess() && responseAddCategory.getCode() == 200) {
+                    showCustomToast(responseAddCategory.getMessage())
+                }
+                else {
+                    showCustomToast(responseAddCategory.getMessage())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseAddCategory>, t: Throwable) {
+                hideProgressDialog()
+                showCustomToast(resources.getString(R.string.network_error))
+            }
+        })
+    }
+
+    private fun getCategory() {
+        showProgressDialog()
+        val api = GetCategoryAPI.create()
+
+        api.getCategory().enqueue(object : Callback<ResponseGetCategory> {
+            override fun onResponse(call: Call<ResponseGetCategory>, response: Response<ResponseGetCategory>) {
+                hideProgressDialog()
+                var responseGetCategory = response.body()
+
+                if (responseGetCategory!!.IsSuccess() && responseGetCategory.getCode() == 200) {
+                    var cnt : Int = 0
+                    for (i in responseGetCategory.getResult()) {
+                        if (cnt < 3) {
+                            mTempCategoryItem.add(CategoryItem(i.getC_title(), 0, 0, i.getCategoriesNo()))
+                        }
+                        else {
+                            mTempCategoryItemBottom.add(CategoryItem(i.getC_title(), 0, 0, i.getCategoriesNo()))
+                        }
+                        cnt++
+                    }
+                    if (responseGetCategory.getResult().size < 3) {
+                        for (i in 1 .. (3-responseGetCategory.getResult().size)) {
+                            mTempCategoryItem.add(CategoryItem("새 카테고리를 만들어주세요", 0, 0, -1))
+                        }
+                    }
+                    else if (responseGetCategory.getResult().size == 3) {
+                        mTempCategoryItemBottom.add(CategoryItem("새 카테고리를 만들어주세요", 0, 0, -1))
+                    }
+                    //mMainCategoryAdapter.notifyDataSetChanged()
+                    //mMainCategoryBottomAdapter.notifyDataSetChanged()
+                }
+                else {
+                    showCustomToast(responseGetCategory.getMessage())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseGetCategory>, t: Throwable) {
+                hideProgressDialog()
+                showCustomToast(resources.getString(R.string.network_error))
+            }
+        })
     }
 }

@@ -44,6 +44,9 @@ class MainCategoryAdapter(private val items: ArrayList<CategoryItem>, private va
         }
     }
 
+    fun addItem(categoryItem: CategoryItem) {
+        items.add(categoryItem)
+    }
 
     abstract inner class OnSingleClickListener : View.OnClickListener {
 

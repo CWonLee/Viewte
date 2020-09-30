@@ -6,6 +6,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.Transformation
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
@@ -27,6 +29,7 @@ import com.makeus.blue.viewte.src.main.models.ResponseGetCategory
 import com.makeus.blue.viewte.src.record.RecordActivity
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
+import com.orhanobut.dialogplus.OnClickListener
 import com.orhanobut.dialogplus.ViewHolder
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,11 +45,9 @@ class MainActivity : BaseActivity(), MainActivityView {
     private lateinit var mRvCategoryBottom: RecyclerView
     private lateinit var mMainCategoryAdapter : MainCategoryAdapter
     private lateinit var mMainCategoryBottomAdapter : MainCategoryAdapter
-    private var mTempCategoryItem : ArrayList<CategoryItem> = ArrayList()
-    private var mTempCategoryItemBottom : ArrayList<CategoryItem> = ArrayList()
     private var mCategoryItemTop : ArrayList<CategoryItem> = ArrayList()
     private var mCategoryItemBottom : ArrayList<CategoryItem> = ArrayList()
-    private lateinit var mElCategory : ExpandableRelativeLayout
+    private lateinit var mClExpandArea : ConstraintLayout
     private lateinit var mClCategoryExpand : ConstraintLayout
     private var mCategoryExpand : Boolean = false
     private lateinit var mClSearch: ConstraintLayout
@@ -65,11 +66,11 @@ class MainActivity : BaseActivity(), MainActivityView {
         mIvProfile = findViewById(R.id.main_iv_profile)
         mRvCategoryTop = findViewById(R.id.main_rv_category_top)
         mRvCategoryBottom = findViewById(R.id.main_rv_category_bottom)
-        mElCategory = findViewById(R.id.main_el_category)
         mClCategoryExpand = findViewById(R.id.main_cl_category_expand)
         mClSearch = findViewById(R.id.main_cl_search)
         mClRecord = findViewById(R.id.main_cl_mic)
         mIvAddCategory = findViewById(R.id.main_iv_plus)
+        mClExpandArea = findViewById(R.id.main_cl_expand_area)
 
 //        // get KeyHash
 //        try {
@@ -88,7 +89,7 @@ class MainActivity : BaseActivity(), MainActivityView {
 //        }
         mIvNavProfile.clipToOutline = true
         mIvProfile.clipToOutline = true
-        mElCategory.collapse()
+        collapse(mClExpandArea)
 
 
         mMainCategoryAdapter = MainCategoryAdapter(mCategoryItemTop, this)
@@ -104,45 +105,24 @@ class MainActivity : BaseActivity(), MainActivityView {
         mRvCategoryBottom.adapter = mMainCategoryBottomAdapter
         mRvCategoryBottom.isNestedScrollingEnabled = false
 
-        /*
-        for (i in 1.. 3) {
-            mCategoryItemTop.add(CategoryItem("qq", 0, 0, 0))
-        }
-        for (i in 1.. 2) {
-            mCategoryItemBottom.add(CategoryItem("qq", 0, 0, 0))
-        }
-
-         */
-
         getCategory()
-
-        for (i in mTempCategoryItem) {
-            mCategoryItemTop.add((i))
-        }
-        for (i in mTempCategoryItemBottom) {
-            mCategoryItemBottom.add(i)
-        }
-
-        mMainCategoryAdapter.notifyDataSetChanged()
-        mMainCategoryBottomAdapter.notifyDataSetChanged()
 
         mIvMenu.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 mDl.openDrawer(GravityCompat.START)
             }
         })
-        mClCategoryExpand.setOnClickListener(object : OnSingleClickListener() {
-            override fun onSingleClick(v: View) {
-                if (mCategoryExpand) {
-                    mElCategory.collapse()
-                    mCategoryExpand = false
-                }
-                else {
-                    mElCategory.expand()
-                    mCategoryExpand = true
-                }
+        mClCategoryExpand.setOnClickListener {
+            if (mCategoryExpand) {
+                collapse(mClExpandArea)
+                mCategoryExpand = false
             }
-        })
+            else {
+                expand(mClExpandArea)
+                mCategoryExpand = true
+            }
+        }
+
         mClSearch.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 showSearchDialog()
@@ -196,13 +176,14 @@ class MainActivity : BaseActivity(), MainActivityView {
 
         api.postLogin(RequestAddCategory(name)).enqueue(object : Callback<ResponseAddCategory> {
             override fun onResponse(call: Call<ResponseAddCategory>, response: Response<ResponseAddCategory>) {
-                hideProgressDialog()
                 var responseAddCategory = response.body()
 
                 if (responseAddCategory!!.IsSuccess() && responseAddCategory.getCode() == 200) {
+                    getCategory()
                     showCustomToast(responseAddCategory.getMessage())
                 }
                 else {
+                    hideProgressDialog()
                     showCustomToast(responseAddCategory.getMessage())
                 }
             }
@@ -224,26 +205,28 @@ class MainActivity : BaseActivity(), MainActivityView {
                 var responseGetCategory = response.body()
 
                 if (responseGetCategory!!.IsSuccess() && responseGetCategory.getCode() == 200) {
+                    mCategoryItemTop.clear()
+                    mCategoryItemBottom.clear()
                     var cnt : Int = 0
                     for (i in responseGetCategory.getResult()) {
                         if (cnt < 3) {
-                            mTempCategoryItem.add(CategoryItem(i.getC_title(), 0, 0, i.getCategoriesNo()))
+                            mCategoryItemTop.add(CategoryItem(i.getC_title(), 0, 0, i.getCategoriesNo()))
                         }
                         else {
-                            mTempCategoryItemBottom.add(CategoryItem(i.getC_title(), 0, 0, i.getCategoriesNo()))
+                            mCategoryItemBottom.add(CategoryItem(i.getC_title(), 0, 0, i.getCategoriesNo()))
                         }
                         cnt++
                     }
                     if (responseGetCategory.getResult().size < 3) {
                         for (i in 1 .. (3-responseGetCategory.getResult().size)) {
-                            mTempCategoryItem.add(CategoryItem("새 카테고리를 만들어주세요", 0, 0, -1))
+                            mCategoryItemTop.add(CategoryItem("새 카테고리를 만들어주세요", 0, 0, -1))
                         }
                     }
                     else if (responseGetCategory.getResult().size == 3) {
-                        mTempCategoryItemBottom.add(CategoryItem("새 카테고리를 만들어주세요", 0, 0, -1))
+                        mCategoryItemBottom.add(CategoryItem("새 카테고리를 만들어주세요", 0, 0, -1))
                     }
-                    //mMainCategoryAdapter.notifyDataSetChanged()
-                    //mMainCategoryBottomAdapter.notifyDataSetChanged()
+                    mMainCategoryAdapter.notifyDataSetChanged()
+                    mMainCategoryBottomAdapter.notifyDataSetChanged()
                 }
                 else {
                     showCustomToast(responseGetCategory.getMessage())
@@ -255,5 +238,62 @@ class MainActivity : BaseActivity(), MainActivityView {
                 showCustomToast(resources.getString(R.string.network_error))
             }
         })
+    }
+
+    private fun expand(v: View) {
+        val matchParentMeasureSpec = View.MeasureSpec.makeMeasureSpec(
+            (v.parent as View).width,
+            View.MeasureSpec.EXACTLY
+        )
+        val wrapContentMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        v.measure(matchParentMeasureSpec, wrapContentMeasureSpec)
+        val targetHeight = v.getMeasuredHeight()
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.layoutParams.height = 1
+        v.visibility = View.VISIBLE
+        val a = object : Animation() {
+            override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                v.getLayoutParams().height = if (interpolatedTime == 1f)
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                else
+                    (targetHeight * interpolatedTime).toInt()
+                v.requestLayout()
+            }
+
+            override fun willChangeBounds(): Boolean {
+                return true
+            }
+        }
+
+        // Expansion speed of 1dp/ms
+        a.duration =
+            ((targetHeight / v.context.resources.displayMetrics.density).toInt()).toLong()
+        v.startAnimation(a)
+    }
+
+    private fun collapse(v: View) {
+        val initialHeight = v.measuredHeight
+
+        val a = object : Animation() {
+            override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                if (interpolatedTime == 1f) {
+                    v.visibility = View.GONE
+                } else {
+                    v.layoutParams.height =
+                        initialHeight - (initialHeight * interpolatedTime).toInt()
+                    v.requestLayout()
+                }
+            }
+
+            override fun willChangeBounds(): Boolean {
+                return true
+            }
+        }
+
+        // Collapse speed of 1dp/ms
+        a.duration =
+            ((initialHeight / v.context.resources.displayMetrics.density).toInt()).toLong()
+        v.startAnimation(a)
     }
 }

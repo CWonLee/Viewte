@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".src.add_interview.AddInterview1Activity"
+    android:background="@color/colorBackgroundDark">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/theme_category_top"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp">
+
+                <ImageView
+                    android:id="@+id/add_interview1_iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_back"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginRight="32dp"/>
+
+                <TextView
+                    android:id="@+id/add_interview1_tv_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="21dp"
+                    android:fontFamily="@font/notosanskr_regular"
+                    android:text="1 / 7"
+                    android:textSize="18sp"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorGrey"/>
+
+                <LinearLayout
+                    android:id="@+id/add_interview1_ll_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/add_interview1_tv_page"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginRight="21dp">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorHighlightBlue"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="6"
+                        android:background="@color/colorGrey"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/add_interview1_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/add_interview1_ll_divider"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="21dp"
+                    android:text="인터뷰 제목과\n목적을 정해보세요!"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/add_interview1_cl_photo"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    app:layout_constraintTop_toBottomOf="@+id/add_interview1_tv_title"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/theme_white_round">
+
+                    <ImageView
+                        android:id="@+id/add_interview1_add_photo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:src="@drawable/add_photo_alternate_24_px"/>
+
+                    <ImageView
+                        android:id="@+id/add_interview1_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:cropToPadding="true"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/add_interview1_cl_photo"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="26dp"
+                    android:text="표시 이미지"
+                    android:textSize="8sp"
+                    android:gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:fontFamily="@font/notosanskr_regular"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/add_interview1_tv_title"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toRightOf="@+id/add_interview1_cl_photo"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginRight="36dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosanskr_regular"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="12sp"
+                        android:text="인터뷰 제목"/>
+                    <EditText
+                        android:id="@+id/add_interview1_et_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:theme="@style/EditTheme"
+                        android:fontFamily="@font/notosanskr_regular"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/colorWhite"
+                        android:inputType="text"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosanskr_regular"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="12sp"
+                        android:text="인터뷰 목적"
+                        android:layout_marginTop="30dp"/>
+                    <EditText
+                        android:id="@+id/add_interview1_et_purpose"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:theme="@style/EditTheme"
+                        android:fontFamily="@font/notosanskr_regular"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/colorWhite"
+                        android:inputType="text"/>
+
+                    <Button
+                        android:id="@+id/add_interview1_btn_next"
+                        android:layout_width="88dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="35dp"
+                        android:background="@drawable/theme_background_dark_next_btn"
+                        android:text="다음!"/>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_interview1_cl_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_home_blue"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="8sp"
+                android:textColor="@color/colorLightishBlue"
+                android:text="홈"
+                android:fontFamily="@font/notosanskr_demilight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_interview1_cl_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_search_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="8sp"
+                android:textColor="@color/colorGrey"
+                android:text="찾기"
+                android:fontFamily="@font/notosanskr_demilight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_interview1_cl_mic"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_mic_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="8sp"
+                android:textColor="@color/colorGrey"
+                android:text="녹음"
+                android:fontFamily="@font/notosanskr_demilight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_interview1_cl_trash"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_trash_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="8sp"
+                android:textColor="@color/colorGrey"
+                android:text="녹음"
+                android:fontFamily="@font/notosanskr_demilight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_interview1_cl_setting"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_set_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="8sp"
+                android:textColor="@color/colorGrey"
+                android:text="녹음"
+                android:fontFamily="@font/notosanskr_demilight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

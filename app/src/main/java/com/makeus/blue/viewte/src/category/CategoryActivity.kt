@@ -62,13 +62,13 @@ class CategoryActivity : BaseActivity() {
             mCategoryItemBottom.add(CategoryItem("김연우 파티셰 인터뷰", "2020.07.16 월요일, 8분", ""))
         }
 
-        mMainCategoryAdapter = CategoryAdapter(mCategoryItemTop)
+        mMainCategoryAdapter = CategoryAdapter(mCategoryItemTop, this)
         mRvCategoryTop.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRvCategoryTop.setHasFixedSize(true)
         mRvCategoryTop.adapter = mMainCategoryAdapter
         mRvCategoryTop.isNestedScrollingEnabled = false
 
-        mMainCategoryBottomAdapter = CategoryAdapter(mCategoryItemBottom)
+        mMainCategoryBottomAdapter = CategoryAdapter(mCategoryItemBottom, this)
         mRvCategoryBottom.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRvCategoryBottom.setHasFixedSize(true)
         mRvCategoryBottom.adapter = mMainCategoryBottomAdapter

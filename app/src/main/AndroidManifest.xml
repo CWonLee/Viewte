@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".src.category.CategoryActivity"></activity>
+        <activity android:name=".src.add_interview.AddInterview2Activity"></activity>
+        <activity android:name=".src.add_interview.AddInterview1Activity" />
+        <activity android:name=".src.category.CategoryActivity" />
         <activity android:name=".src.record.RecordActivity" />
         <activity android:name=".src.join.Join2Activity" />
         <activity android:name=".src.join.JoinActivity" />
@@ -28,9 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".src.login.LoginActivity" />
-        <activity android:name=".src.main.MainActivity">
-
-        </activity>
+        <activity android:name=".src.main.MainActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

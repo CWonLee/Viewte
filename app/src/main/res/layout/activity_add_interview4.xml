@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".src.add_interview.AddInterview4Activity"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundDark">
+
+    <ScrollView
+        android:id="@+id/add_interview4_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/theme_category_top"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp">
+
+                <ImageView
+                    android:id="@+id/add_interview4_iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_back"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginRight="32dp"/>
+
+                <TextView
+                    android:id="@+id/add_interview4_tv_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="21dp"
+                    android:fontFamily="@font/notosanskr_regular"
+                    android:text="4 / 7"
+                    android:textSize="18sp"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorGrey"/>
+
+                <LinearLayout
+                    android:id="@+id/add_interview4_ll_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/add_interview4_tv_page"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginRight="21dp">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="4"
+                        android:background="@color/colorHighlightBlue"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="3"
+                        android:background="@color/colorGrey"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/add_interview4_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/add_interview4_ll_divider"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="21dp"
+                    android:text="인터뷰 장소는\n어디인가요?"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:id="@+id/add_interview4_tv_locate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/add_interview4_tv_title"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginRight="21dp"
+                    android:textColor="@color/colorHighlightBlue"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/add_interview4_cv_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="227dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintTop_toBottomOf="@+id/add_interview4_tv_locate"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="17dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/add_interview4_cl_map"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <fragment
+                            android:id="@+id/add_interview4_fm_map"
+                            android:name="com.makeus.blue.viewte.src.add_interview.ScrollableMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/theme_grey2_radius20" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="11dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:cardBackgroundColor="@color/colorWhite"
+                            app:cardElevation="2dp"
+                            app:cardCornerRadius="20dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <EditText
+                                    android:id="@+id/add_interview4_et_search"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="10dp"
+                                    android:hint="원하는 장소를 검색하거나 핀을 꽂아주세요!"
+                                    android:textColor="@color/colorBlack"
+                                    android:textColorHint="@color/colorGrey"
+                                    android:textSize="12sp"
+                                    android:gravity="center_vertical"
+                                    android:drawableRight="@drawable/ic_search_search"
+                                    android:background="@drawable/background_transparent"/>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/add_interview4_btn_next"
+                    android:layout_width="88dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="right"
+                    app:layout_constraintTop_toBottomOf="@+id/add_interview4_cv_map"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="27dp"
+                    android:background="@drawable/theme_background_dark_next_btn"
+                    android:text="다음!"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_interview4_cl_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_home_blue"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="8sp"
+                android:textColor="@color/colorLightishBlue"
+                android:text="홈"
+                android:fontFamily="@font/notosanskr_demilight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_interview4_cl_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_search_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="8sp"
+                android:textColor="@color/colorGrey"
+                android:text="찾기"
+                android:fontFamily="@font/notosanskr_demilight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_interview4_cl_mic"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_mic_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="8sp"
+                android:textColor="@color/colorGrey"
+                android:text="녹음"
+                android:fontFamily="@font/notosanskr_demilight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_interview4_cl_trash"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_trash_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="8sp"
+                android:textColor="@color/colorGrey"
+                android:text="녹음"
+                android:fontFamily="@font/notosanskr_demilight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_interview4_cl_setting"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/icon_set_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="8sp"
+                android:textColor="@color/colorGrey"
+                android:text="녹음"
+                android:fontFamily="@font/notosanskr_demilight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

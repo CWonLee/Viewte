@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".src.ApplicationClass"
@@ -16,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".src.add_interview.AddInterview2Activity"></activity>
+        <activity android:name=".src.add_interview.AddInterview4Activity"></activity>
+        <activity android:name=".src.add_interview.AddInterview3Activity" />
+        <activity android:name=".src.add_interview.AddInterview2Activity" />
         <activity android:name=".src.add_interview.AddInterview1Activity" />
         <activity android:name=".src.category.CategoryActivity" />
         <activity android:name=".src.record.RecordActivity" />
@@ -35,6 +39,10 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/KAKAO_APP_KEY" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB8ThsdVj_Qd2ZWrDcq9wBR_EYIZZutGPQ" />
+
     </application>
 
 </manifest>

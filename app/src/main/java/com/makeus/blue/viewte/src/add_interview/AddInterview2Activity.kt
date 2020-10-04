@@ -1,8 +1,10 @@
 package com.makeus.blue.viewte.src.add_interview
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.applandeo.materialcalendarview.CalendarView
@@ -21,6 +23,7 @@ class AddInterview2Activity : BaseActivity() {
     private lateinit var mMonth: String
     private lateinit var mDay: String
     private lateinit var mIvBack: ImageView
+    private lateinit var mBtnNext: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,7 @@ class AddInterview2Activity : BaseActivity() {
         mTvDate = findViewById(R.id.add_interview2_tv_date)
         mCalendarView = findViewById(R.id.add_interview2_calendar)
         mIvBack = findViewById(R.id.add_interview2_iv_back)
+        mBtnNext = findViewById(R.id.add_interview2_btn_next)
 
         val currentTime = Calendar.getInstance().time
         val weekdayFormat = SimpleDateFormat("EE", Locale.getDefault())
@@ -64,6 +68,13 @@ class AddInterview2Activity : BaseActivity() {
         mIvBack.setOnClickListener(object: OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 finish()
+            }
+        })
+
+        mBtnNext.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@AddInterview2Activity, AddInterview3Activity::class.java)
+                startActivity(intent)
             }
         })
     }

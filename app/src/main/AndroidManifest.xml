@@ -18,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".src.add_interview.AddInterview4Activity"></activity>
+        <activity android:name=".src.add_interview.AddInterview6Activity"></activity>
+        <activity android:name=".src.add_interview.AddInterview5Activity" />
+        <activity android:name=".src.add_interview.AddInterview4Activity" />
         <activity android:name=".src.add_interview.AddInterview3Activity" />
         <activity android:name=".src.add_interview.AddInterview2Activity" />
         <activity android:name=".src.add_interview.AddInterview1Activity" />
@@ -42,7 +44,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB8ThsdVj_Qd2ZWrDcq9wBR_EYIZZutGPQ" />
-
     </application>
 
 </manifest>

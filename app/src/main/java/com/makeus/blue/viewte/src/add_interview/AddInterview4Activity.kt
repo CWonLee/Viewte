@@ -12,10 +12,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
-import android.widget.EditText
-import android.widget.ScrollView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -36,6 +33,8 @@ class AddInterview4Activity : BaseActivity(), OnMapReadyCallback {
     private lateinit var mMarkerOption :MarkerOptions
     private lateinit var mScrollView : ScrollView
     private lateinit var mTvLocation : TextView
+    private lateinit var mBtnNext : Button
+    private lateinit var mIvBack : ImageView
     private var REQUIRED_PERMISSIONS = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
@@ -51,6 +50,8 @@ class AddInterview4Activity : BaseActivity(), OnMapReadyCallback {
         mEtSearch = findViewById(R.id.add_interview4_et_search)
         mScrollView = findViewById(R.id.add_interview4_scrollview)
         mTvLocation = findViewById(R.id.add_interview4_tv_locate)
+        mBtnNext = findViewById(R.id.add_interview4_btn_next)
+        mIvBack = findViewById(R.id.add_interview4_iv_back)
 
         val scrollableMapFragment = supportFragmentManager
             .findFragmentById(R.id.add_interview4_fm_map) as ScrollableMapFragment
@@ -63,6 +64,19 @@ class AddInterview4Activity : BaseActivity(), OnMapReadyCallback {
 
             override fun onActionUp() {
                 mScrollView.requestDisallowInterceptTouchEvent(true)
+            }
+        })
+
+        mBtnNext.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@AddInterview4Activity, AddInterview5Activity::class.java)
+                startActivity(intent)
+            }
+        })
+
+        mIvBack.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                finish()
             }
         })
 

@@ -30,6 +30,7 @@ class MainCategoryAdapter(private val items: ArrayList<CategoryItem>, private va
         holder.itemView.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 val intent = Intent(context, CategoryActivity::class.java)
+                intent.putExtra("categoriesNo", items[position].getCategoryNo())
                 context.startActivity(intent)
             }
         })

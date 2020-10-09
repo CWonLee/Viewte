@@ -58,6 +58,12 @@ class AddInterview5Activity : BaseActivity() {
                 }
                 if (bo) {
                     var intent = Intent(this@AddInterview5Activity, AddInterview6Activity::class.java)
+                    intent.putExtra("categoriesNo", getIntent().getIntExtra("categoriesNo", 0))
+                    intent.putExtra("i_title", getIntent().getStringExtra("i_title"))
+                    intent.putExtra("purpose", getIntent().getStringExtra("purpose"))
+                    intent.putExtra("date", getIntent().getStringExtra("date"))
+                    intent.putExtra("time", getIntent().getStringExtra("time"))
+                    intent.putExtra("location", getIntent().getStringExtra("location"))
                     intent.putStringArrayListExtra("questionList", list)
                     startActivity(intent)
                 }

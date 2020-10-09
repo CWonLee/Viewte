@@ -1,7 +1,6 @@
 package com.makeus.blue.viewte.src.add_interview
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -24,6 +23,7 @@ class AddInterview2Activity : BaseActivity() {
     private lateinit var mDay: String
     private lateinit var mIvBack: ImageView
     private lateinit var mBtnNext: Button
+    private lateinit var mYear: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,13 +35,16 @@ class AddInterview2Activity : BaseActivity() {
         mBtnNext = findViewById(R.id.add_interview2_btn_next)
 
         val currentTime = Calendar.getInstance().time
+        val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
         val weekdayFormat = SimpleDateFormat("EE", Locale.getDefault())
         val dayFormat = SimpleDateFormat("dd", Locale.getDefault())
         val monthFormat = SimpleDateFormat("MM", Locale.getDefault())
 
+
         mWeekDay = weekdayFormat.format(currentTime)
         mMonth = monthFormat.format(currentTime)
         mDay = dayFormat.format(currentTime)
+        mYear = yearFormat.format(currentTime)
 
         mTvDate.text = mMonth + "월" + mDay + "일" + mWeekDay + "요일"
 
@@ -74,6 +77,14 @@ class AddInterview2Activity : BaseActivity() {
         mBtnNext.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 var intent = Intent(this@AddInterview2Activity, AddInterview3Activity::class.java)
+
+                var dateString: String = "$mYear-$mMonth-$mDay"
+
+                intent.putExtra("categoriesNo", getIntent().getIntExtra("categoriesNo", 0))
+                intent.putExtra("i_title", getIntent().getStringExtra("i_title"))
+                intent.putExtra("purpose", getIntent().getStringExtra("purpose"))
+                intent.putExtra("date", dateString)
+
                 startActivity(intent)
             }
         })

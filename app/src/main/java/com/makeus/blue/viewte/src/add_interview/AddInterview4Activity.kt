@@ -69,8 +69,22 @@ class AddInterview4Activity : BaseActivity(), OnMapReadyCallback {
 
         mBtnNext.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
-                var intent = Intent(this@AddInterview4Activity, AddInterview5Activity::class.java)
-                startActivity(intent)
+
+                if (mTvLocation.text.toString() == "") {
+                    showCustomToast("주소를 선택해주세요")
+                }
+                else {
+                    var intent = Intent(this@AddInterview4Activity, AddInterview5Activity::class.java)
+
+                    intent.putExtra("categoriesNo", getIntent().getIntExtra("categoriesNo", 0))
+                    intent.putExtra("i_title", getIntent().getStringExtra("i_title"))
+                    intent.putExtra("purpose", getIntent().getStringExtra("purpose"))
+                    intent.putExtra("date", getIntent().getStringExtra("date"))
+                    intent.putExtra("time", getIntent().getStringExtra("time"))
+                    intent.putExtra("location", mTvLocation.text.toString())
+
+                    startActivity(intent)
+                }
             }
         })
 

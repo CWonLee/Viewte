@@ -15,6 +15,7 @@
         android:includeFontPadding="false"/>
 
     <EditText
+        android:id="@+id/item_add_interview6_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/theme_item_add_interview6_edittext"

@@ -2,6 +2,7 @@ package com.makeus.blue.viewte.src.category
 
 import android.content.Context
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.add_interview.AddInterview1Activity
 import com.makeus.blue.viewte.src.category.models.CategoryItem
+import com.makeus.blue.viewte.src.category.models.ResponseInterviewResult
 import kotlinx.android.synthetic.main.item_category_recycler.view.*
 
-class CategoryAdapter(private val items: ArrayList<CategoryItem>, private val context: Context): RecyclerView.Adapter<CategoryAdapter.ViewHolder>()  {
+class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, private val context: Context): RecyclerView.Adapter<CategoryAdapter.ViewHolder>()  {
 
     //아이템의 갯수
     override fun getItemCount(): Int {
@@ -38,9 +40,39 @@ class CategoryAdapter(private val items: ArrayList<CategoryItem>, private val co
 
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        fun bindItems(data : CategoryItem){
-            itemView.item_category_tv_title.text = data.getName()
-            itemView.item_category_tv_date.text = data.getDate()
+        fun bindItems(data : ResponseInterviewResult){
+            itemView.item_category_tv_title.text = data.getITitle()
+            var date = data.getDate()
+            var newDate: String = ""
+            newDate = date[0].toString() + date[1] + date[2] + date[3] + "." + date[5] + date[6] + "." + date[8] + date[9] + " "
+            when {
+                data.getWeekDay() == 0 -> {
+                    newDate += "월요일"
+                }
+                data.getWeekDay() == 1 -> {
+                    newDate += "화요일"
+                }
+                data.getWeekDay() == 2 -> {
+                    newDate += "수요일"
+                }
+                data.getWeekDay() == 3 -> {
+                    newDate += "목요일"
+                }
+                data.getWeekDay() == 4 -> {
+                    newDate += "금요일"
+                }
+                data.getWeekDay() == 5 -> {
+                    newDate += "토요일"
+                }
+                data.getWeekDay() == 6 -> {
+                    newDate += "일요일"
+                }
+            }
+            itemView.item_category_tv_date.text = newDate
+            if (data.getIsMemo() == 'N') {
+                itemView.item_category_iv_mic.visibility = View.GONE
+            }
+
             // 이미지 glide로 넣기
         }
     }

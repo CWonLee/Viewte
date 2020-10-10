@@ -15,19 +15,11 @@ data class RequestInterviewQuestionInfo(
     @SerializedName("keyword")
     private var keyword: String
 ) {
-    fun setIdx(idx: Int) {
-        this.idx = idx
-    }
-
-    fun setQuestion(question: String) {
-        this.question = question
-    }
-
-    fun setAnswer(answer: String) {
-        this.answer = answer
-    }
-
-    fun setKeyword(keyword: String) {
-        this.keyword = keyword
+    fun printAll() {
+        println("idx = $idx")
+        println("question = $question")
+        println("answer = $answer")
+        println("keyword = $keyword")
+        println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
     }
 }

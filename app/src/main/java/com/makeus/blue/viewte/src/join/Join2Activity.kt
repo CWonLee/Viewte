@@ -12,9 +12,6 @@ import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.join.api.JoinAPI
 import com.makeus.blue.viewte.src.join.models.RequestJoin
 import com.makeus.blue.viewte.src.join.models.ResponseJoin
-import com.makeus.blue.viewte.src.login.api.LoginAPI
-import com.makeus.blue.viewte.src.login.models.RequestLogin
-import com.makeus.blue.viewte.src.login.models.ResponseLogin
 import com.makeus.blue.viewte.src.main.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -67,6 +64,8 @@ class Join2Activity : BaseActivity() {
                     showCustomToast(responseJoin.getMessage())
                     ApplicationClass.prefs.myEditText = responseJoin.getJwt()
                     var intent = Intent(this@Join2Activity, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
                 else {

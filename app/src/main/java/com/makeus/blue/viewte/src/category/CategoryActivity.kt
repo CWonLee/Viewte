@@ -160,6 +160,7 @@ class CategoryActivity : BaseActivity() {
             override fun onFailure(call: Call<ResponseInterview>, t: Throwable) {
                 hideProgressDialog()
                 showCustomToast(resources.getString(R.string.network_error))
+                t.printStackTrace()
             }
         })
     }

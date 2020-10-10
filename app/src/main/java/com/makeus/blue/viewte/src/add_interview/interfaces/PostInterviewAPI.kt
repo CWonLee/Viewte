@@ -2,8 +2,8 @@ package com.makeus.blue.viewte.src.add_interview.interfaces
 
 import com.makeus.blue.viewte.src.ApplicationClass
 import com.makeus.blue.viewte.src.add_interview.models.RequestInterview
+import com.makeus.blue.viewte.src.add_interview.models.ResponseInterview
 import com.makeus.blue.viewte.src.category.interfaces.GetInterviewAPI
-import com.makeus.blue.viewte.src.category.models.ResponseInterview
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,11 +12,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface PostInterviewAPI {
-    @GET("/user/categories/interview")
-    fun getInterview(@Body params: RequestInterview): Call<ResponseInterview>
+    @POST("/user/categories/interview")
+    fun postInterview(@Body params: RequestInterview): Call<ResponseInterview>
 
     companion object {
 

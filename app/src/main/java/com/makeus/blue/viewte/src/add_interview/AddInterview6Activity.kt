@@ -1,6 +1,7 @@
 package com.makeus.blue.viewte.src.add_interview
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -39,8 +40,29 @@ class AddInterview6Activity : BaseActivity() {
 
         mBtnNext.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
+                var bo : Boolean = true
                 for (i in mRecyclerAdapter.getAnswer()) {
-                    println(i)
+                    if (i == "") {
+                        bo = false
+                        break
+                    }
+                }
+                if (!bo) {
+                    showCustomToast("답변을 입력해주세요")
+                }
+                else {
+                    var intent = Intent(this@AddInterview6Activity, AddInterview7Activity::class.java)
+
+                    intent.putExtra("categoriesNo", getIntent().getIntExtra("categoriesNo", 0))
+                    intent.putExtra("i_title", getIntent().getStringExtra("i_title"))
+                    intent.putExtra("purpose", getIntent().getStringExtra("purpose"))
+                    intent.putExtra("date", getIntent().getStringExtra("date"))
+                    intent.putExtra("time", getIntent().getStringExtra("time"))
+                    intent.putExtra("location", getIntent().getStringExtra("location"))
+                    intent.putStringArrayListExtra("questionList", getIntent().getStringArrayListExtra("questionList"))
+                    intent.putStringArrayListExtra("answerList", mRecyclerAdapter.getAnswer())
+
+                    startActivity(intent)
                 }
             }
         })

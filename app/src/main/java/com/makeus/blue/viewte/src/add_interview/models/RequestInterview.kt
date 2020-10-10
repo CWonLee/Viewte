@@ -27,35 +27,17 @@ data class RequestInterview(
     @SerializedName("questioninfo")
     private var questioninfo: ArrayList<RequestInterviewQuestionInfo>
 ) {
-    fun setCategoriesNo(categoriesNo: Int) {
-        this.categoriesNo = categoriesNo
-    }
+    fun printAll() {
+        println("categoryNo = $categoriesNo")
+        println("i_title = $i_title")
+        println("purpose = $purpose")
+        println("date = $date")
+        println("time = $time")
+        println("location = $location")
+        println("imageUrl = $imageUrl")
 
-    fun setITitle(i_title: String) {
-        this.i_title = i_title
-    }
-
-    fun setPurpose(purpose: String) {
-        this.purpose = purpose
-    }
-
-    fun setDate(date: String) {
-        this.date = date
-    }
-
-    fun setTime(time: String) {
-        this.time = time
-    }
-
-    fun setLocation(location: String) {
-        this.location = location
-    }
-
-    fun setImageUrl(imageUrl: String) {
-        this.imageUrl = imageUrl
-    }
-
-    fun setQuestionInfo(questioninfo: ArrayList<RequestInterviewQuestionInfo>) {
-        this.questioninfo = questioninfo
+        for (i in questioninfo) {
+            i.printAll()
+        }
     }
 }

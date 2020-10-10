@@ -96,6 +96,8 @@ class LoginActivity : BaseActivity() {
                     var intent = Intent(this@LoginActivity, MainActivity::class.java)
                     ApplicationClass.prefs.myEditText = responseLogin.getJwt()
                     showCustomToast(responseLogin.getMessage())
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
             }

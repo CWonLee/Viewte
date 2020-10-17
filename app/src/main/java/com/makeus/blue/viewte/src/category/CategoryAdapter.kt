@@ -12,6 +12,7 @@ import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.add_interview.AddInterview1Activity
 import com.makeus.blue.viewte.src.category.models.CategoryItem
 import com.makeus.blue.viewte.src.category.models.ResponseInterviewResult
+import com.makeus.blue.viewte.src.interview.InterviewActivity
 import kotlinx.android.synthetic.main.item_category_recycler.view.*
 
 class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, private val context: Context): RecyclerView.Adapter<CategoryAdapter.ViewHolder>()  {
@@ -32,7 +33,7 @@ class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, pri
 
         holder.itemView.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
-                val intent = Intent(context, AddInterview1Activity::class.java)
+                val intent = Intent(context, InterviewActivity::class.java)
                 context.startActivity(intent)
             }
         })

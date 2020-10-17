@@ -87,6 +87,7 @@ class LoginActivity : BaseActivity() {
                 hideProgressDialog()
                 val responseLogin = response.body()
 
+
                 if (responseLogin!!.IsSuccess() && responseLogin.getCode() == 201) {
                     var intent = Intent(this@LoginActivity, JoinActivity::class.java)
                     intent.putExtra("oauthid", responseLogin.getOauthid())
@@ -104,6 +105,7 @@ class LoginActivity : BaseActivity() {
 
             override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
                 hideProgressDialog()
+                t.printStackTrace()
                 showCustomToast(resources.getString(R.string.network_error))
             }
         })

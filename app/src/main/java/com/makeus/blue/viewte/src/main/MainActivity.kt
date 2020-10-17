@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout
 import com.makeus.blue.viewte.R
+import com.makeus.blue.viewte.src.ApplicationClass
 import com.makeus.blue.viewte.src.BaseActivity
+import com.makeus.blue.viewte.src.login.LoginActivity
 import com.makeus.blue.viewte.src.main.interfaces.AddCategoryAPI
 import com.makeus.blue.viewte.src.main.interfaces.GetCategoryAPI
 import com.makeus.blue.viewte.src.main.interfaces.MainActivityView
@@ -235,7 +237,12 @@ class MainActivity : BaseActivity(), MainActivityView {
 
             override fun onFailure(call: Call<ResponseGetCategory>, t: Throwable) {
                 hideProgressDialog()
-                showCustomToast(resources.getString(R.string.network_error))
+                //showCustomToast(resources.getString(R.string.network_error))
+                ApplicationClass.prefs.myEditText = ""
+                var intent = Intent(this@MainActivity, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
         })
     }

@@ -18,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".src.add_interview.AddInterview7Activity"></activity>
+        <activity android:name=".src.prev_interview.PrevInterviewActivity"></activity>
+        <activity android:name=".src.interview.InterviewActivity"></activity>
+        <activity android:name=".src.add_interview.AddInterview7Activity" />
         <activity android:name=".src.add_interview.AddInterview6Activity" />
         <activity android:name=".src.add_interview.AddInterview5Activity" />
         <activity android:name=".src.add_interview.AddInterview4Activity" />
@@ -37,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".src.login.LoginActivity" />
-        <activity android:name=".src.main.MainActivity" />
+        <activity android:name=".src.main.MainActivity"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

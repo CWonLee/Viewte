@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.Transformation
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -41,9 +43,9 @@ class CategoryActivity : BaseActivity() {
     private lateinit var mRvCategoryBottom: RecyclerView
     private lateinit var mMainCategoryAdapter : CategoryAdapter
     private lateinit var mMainCategoryBottomAdapter : CategoryAdapter
-    private lateinit var mElCategory : ExpandableRelativeLayout
     private lateinit var mClCategoryExpand: ConstraintLayout
     private lateinit var mIvBack: ImageView
+    private lateinit var mClExpandArea: ConstraintLayout
     private var mCategoryExpand : Boolean = false
     private var mCategoryItemTop : ArrayList<ResponseInterviewResult> = ArrayList()
     private var mCategoryItemBottom : ArrayList<ResponseInterviewResult> = ArrayList()
@@ -59,13 +61,13 @@ class CategoryActivity : BaseActivity() {
         mIvNavProfile = findViewById(R.id.category_iv_nav_profile)
         mRvCategoryTop = findViewById(R.id.category_rv_top)
         mRvCategoryBottom = findViewById(R.id.category_rv_bottom)
-        mElCategory = findViewById(R.id.category_el)
         mClCategoryExpand = findViewById(R.id.category_cl_expand)
         mIvBack = findViewById(R.id.category_iv_back)
         mClAddCategory = findViewById(R.id.category_cl_add_interview)
+        mClExpandArea = findViewById(R.id.category_cl_expand_area)
 
         mIvNavProfile.clipToOutline = true
-        mElCategory.collapse()
+        collapse(mClExpandArea)
 
         mMainCategoryAdapter = CategoryAdapter(mCategoryItemTop, this)
         mRvCategoryTop.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
@@ -92,18 +94,16 @@ class CategoryActivity : BaseActivity() {
             }
         })
 
-        mClCategoryExpand.setOnClickListener(object : OnSingleClickListener() {
-            override fun onSingleClick(v: View) {
-                if (mCategoryExpand) {
-                    mElCategory.collapse()
-                    mCategoryExpand = false
-                }
-                else {
-                    mElCategory.expand()
-                    mCategoryExpand = true
-                }
+        mClCategoryExpand.setOnClickListener{
+            if (mCategoryExpand) {
+                collapse(mClExpandArea)
+                mCategoryExpand = false
             }
-        })
+            else {
+                expand(mClExpandArea)
+                mCategoryExpand = true
+            }
+        }
 
         mClAddCategory.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
@@ -136,20 +136,22 @@ class CategoryActivity : BaseActivity() {
                         responseGetInterview.getResult().size > 2 -> {
                             for ((cnt, i) in responseGetInterview.getResult().withIndex()) {
                                 if (cnt < 2) {
-                                    mCategoryItemTop.add(i)
+                                    mCategoryItemTop.add(i[0])
                                 }
                                 else {
-                                    mCategoryItemBottom.add(i)
+                                    mCategoryItemBottom.add(i[0])
                                 }
                             }
                             mCategoryItemBottom
                         }
                         else -> {
                             for (i in responseGetInterview.getResult()) {
-                                mCategoryItemTop.add(i)
+                                mCategoryItemTop.add(i[0])
                             }
                         }
                     }
+                    mMainCategoryAdapter.notifyDataSetChanged()
+                    mMainCategoryBottomAdapter.notifyDataSetChanged()
                 }
                 else {
                     hideProgressDialog()
@@ -163,5 +165,62 @@ class CategoryActivity : BaseActivity() {
                 t.printStackTrace()
             }
         })
+    }
+
+    private fun expand(v: View) {
+        val matchParentMeasureSpec = View.MeasureSpec.makeMeasureSpec(
+            (v.parent as View).width,
+            View.MeasureSpec.EXACTLY
+        )
+        val wrapContentMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        v.measure(matchParentMeasureSpec, wrapContentMeasureSpec)
+        val targetHeight = v.getMeasuredHeight()
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.layoutParams.height = 1
+        v.visibility = View.VISIBLE
+        val a = object : Animation() {
+            override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                v.getLayoutParams().height = if (interpolatedTime == 1f)
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                else
+                    (targetHeight * interpolatedTime).toInt()
+                v.requestLayout()
+            }
+
+            override fun willChangeBounds(): Boolean {
+                return true
+            }
+        }
+
+        // Expansion speed of 1dp/ms
+        a.duration =
+            ((targetHeight / v.context.resources.displayMetrics.density).toInt()).toLong()
+        v.startAnimation(a)
+    }
+
+    private fun collapse(v: View) {
+        val initialHeight = v.measuredHeight
+
+        val a = object : Animation() {
+            override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                if (interpolatedTime == 1f) {
+                    v.visibility = View.GONE
+                } else {
+                    v.layoutParams.height =
+                        initialHeight - (initialHeight * interpolatedTime).toInt()
+                    v.requestLayout()
+                }
+            }
+
+            override fun willChangeBounds(): Boolean {
+                return true
+            }
+        }
+
+        // Collapse speed of 1dp/ms
+        a.duration =
+            ((initialHeight / v.context.resources.displayMetrics.density).toInt()).toLong()
+        v.startAnimation(a)
     }
 }

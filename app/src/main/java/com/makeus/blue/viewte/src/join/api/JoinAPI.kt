@@ -13,6 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
+import java.util.concurrent.TimeUnit
 
 interface JoinAPI {
     @POST("/user/signUp")
@@ -37,6 +38,8 @@ interface JoinAPI {
             }
 
             val client = OkHttpClient.Builder()
+                .readTimeout(5000, TimeUnit.MILLISECONDS)
+                .connectTimeout(5000, TimeUnit.MILLISECONDS)
                 .addInterceptor(headerInterceptor)
                 .addInterceptor(httpLoggingInterceptor)
                 .build()

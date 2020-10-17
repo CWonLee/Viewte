@@ -14,6 +14,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import java.util.concurrent.TimeUnit
 
 interface PostInterviewAPI {
     @POST("/user/categories/interview")
@@ -36,6 +37,8 @@ interface PostInterviewAPI {
             }
 
             val client = OkHttpClient.Builder()
+                .readTimeout(5000, TimeUnit.MILLISECONDS)
+                .connectTimeout(5000, TimeUnit.MILLISECONDS)
                 .addInterceptor(headerInterceptor)
                 .addInterceptor(httpLoggingInterceptor)
                 .build()

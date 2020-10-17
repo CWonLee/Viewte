@@ -13,9 +13,10 @@ import com.makeus.blue.viewte.src.add_interview.AddInterview1Activity
 import com.makeus.blue.viewte.src.category.models.CategoryItem
 import com.makeus.blue.viewte.src.category.models.ResponseInterviewResult
 import com.makeus.blue.viewte.src.interview.InterviewActivity
+import com.makeus.blue.viewte.src.prev_interview.PrevInterviewActivity
 import kotlinx.android.synthetic.main.item_category_recycler.view.*
 
-class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, private val context: Context): RecyclerView.Adapter<CategoryAdapter.ViewHolder>()  {
+class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, private val context: Context, private val categoryNum: Int): RecyclerView.Adapter<CategoryAdapter.ViewHolder>()  {
 
     //아이템의 갯수
     override fun getItemCount(): Int {
@@ -33,8 +34,15 @@ class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, pri
 
         holder.itemView.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
-                val intent = Intent(context, InterviewActivity::class.java)
-                context.startActivity(intent)
+                if (items[position].getIsMemo() == 'Y') {
+
+                }
+                else {
+                    val intent = Intent(context, PrevInterviewActivity::class.java)
+                    intent.putExtra("categoriesNo", categoryNum)
+                    intent.putExtra("interviewNo", items[position].getInterviewNo())
+                    context.startActivity(intent)
+                }
             }
         })
     }

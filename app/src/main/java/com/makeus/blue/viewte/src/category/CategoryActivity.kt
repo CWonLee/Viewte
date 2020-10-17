@@ -69,13 +69,13 @@ class CategoryActivity : BaseActivity() {
         mIvNavProfile.clipToOutline = true
         collapse(mClExpandArea)
 
-        mMainCategoryAdapter = CategoryAdapter(mCategoryItemTop, this)
+        mMainCategoryAdapter = CategoryAdapter(mCategoryItemTop, this, intent.getIntExtra("categoriesNo", 0))
         mRvCategoryTop.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRvCategoryTop.setHasFixedSize(true)
         mRvCategoryTop.adapter = mMainCategoryAdapter
         mRvCategoryTop.isNestedScrollingEnabled = false
 
-        mMainCategoryBottomAdapter = CategoryAdapter(mCategoryItemBottom, this)
+        mMainCategoryBottomAdapter = CategoryAdapter(mCategoryItemBottom, this, intent.getIntExtra("categoriesNo", 0))
         mRvCategoryBottom.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRvCategoryBottom.setHasFixedSize(true)
         mRvCategoryBottom.adapter = mMainCategoryBottomAdapter

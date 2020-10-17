@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".src.is_add_question.IsAddQuestionActivity"
+    android:background="@color/colorBackgroundDark">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="61dp"
+                android:layout_marginRight="40dp"
+                android:fontFamily="@font/notosans_bold"
+                android:text="모든 질문이 완료되었어요!\n여기에서 마칠까요?    "
+                android:textColor="@color/colorWhite"
+                android:textSize="24sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/is_add_question_cl_yes"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/theme_category_item"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="109dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textSize="17sp"
+                    android:text="아니요, 추가 질문할래요!"
+                    android:fontFamily="@font/notosans_bold"
+                    android:textColor="@color/colorWhite"
+                    android:includeFontPadding="false"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/is_add_question_cl_no"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/theme_category_item"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textSize="17sp"
+                    android:text="네! 여기까지 할게요:)"
+                    android:fontFamily="@font/notosans_bold"
+                    android:textColor="@color/colorWhite"
+                    android:includeFontPadding="false"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

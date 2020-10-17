@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".src.ice_break.IceBreakActivity"
+    android:background="@color/colorBackgroundDark">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:text="잠깐! 처음부터\n딱딱한 질문을 던지기보다는\n아이스브레이킹\n질문을 해 보세요!"
+                android:textSize="24sp"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/notosans_bold"
+                android:layout_marginTop="61dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:layout_marginLeft="45dp"
+                android:textColor="@color/colorWhite"
+                android:text="오늘의 추천 아이스브레이킹"
+                android:textSize="12sp"
+                android:fontFamily="@font/notosanskr_regular"
+                android:includeFontPadding="false"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ice_break_cl_1"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/theme_category_item"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textSize="17sp"
+                    android:text="오늘 점심 뭐드셨어요?"
+                    android:fontFamily="@font/notosans_bold"
+                    android:textColor="@color/colorWhite"
+                    android:includeFontPadding="false"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ice_break_cl_2"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/theme_category_item"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textSize="17sp"
+                    android:text="오시느라 힘드셨죠\n뭐 타고 오셨어요?"
+                    android:fontFamily="@font/notosans_bold"
+                    android:textColor="@color/colorWhite"
+                    android:includeFontPadding="false"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ice_break_cl_3"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/theme_category_item"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textSize="17sp"
+                    android:text="차 한잔 드릴게요!\n커피 좋아하세요?"
+                    android:fontFamily="@font/notosans_bold"
+                    android:textColor="@color/colorWhite"
+                    android:includeFontPadding="false"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

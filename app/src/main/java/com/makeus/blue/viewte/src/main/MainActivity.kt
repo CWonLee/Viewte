@@ -31,6 +31,7 @@ import com.makeus.blue.viewte.src.main.models.RequestAddCategory
 import com.makeus.blue.viewte.src.main.models.ResponseAddCategory
 import com.makeus.blue.viewte.src.main.models.ResponseGetCategory
 import com.makeus.blue.viewte.src.record.RecordActivity
+import com.makeus.blue.viewte.src.setting.SettingActivity
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.OnClickListener
@@ -58,6 +59,8 @@ class MainActivity : BaseActivity(), MainActivityView {
     private lateinit var mClRecord: ConstraintLayout
     private lateinit var mIvAddCategory: ImageView
     private lateinit var mClLogout: ConstraintLayout
+    private lateinit var mClSetting: ConstraintLayout
+    private lateinit var mClNavSetting: ConstraintLayout
 
     @SuppressLint("WrongConstant")
     @RequiresApi(Build.VERSION_CODES.P)
@@ -77,6 +80,8 @@ class MainActivity : BaseActivity(), MainActivityView {
         mIvAddCategory = findViewById(R.id.main_iv_plus)
         mClExpandArea = findViewById(R.id.main_cl_expand_area)
         mClLogout = findViewById(R.id.main_cl_nav_logout)
+        mClSetting = findViewById(R.id.main_cl_setting)
+        mClNavSetting = findViewById(R.id.main_cl_nav_set)
 
 //        // get KeyHash
 //        try {
@@ -129,6 +134,18 @@ class MainActivity : BaseActivity(), MainActivityView {
             }
         }
 
+        mClSetting.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@MainActivity, SettingActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        mClNavSetting.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@MainActivity, SettingActivity::class.java)
+                startActivity(intent)
+            }
+        })
         mClSearch.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 showSearchDialog()

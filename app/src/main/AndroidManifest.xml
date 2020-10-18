@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".src.finish_interview.FinishInterviewActivity"></activity>
+        <activity android:name=".src.setting.SettingActivity"></activity>
+        <activity android:name=".src.finish_interview.FinishInterviewActivity" />
         <activity android:name=".src.is_add_question.IsAddQuestionActivity" />
         <activity android:name=".src.start_interview.StartInterviewActivity" />
         <activity android:name=".src.introduce.IntroduceActivity" />

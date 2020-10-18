@@ -17,6 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout
+import com.kakao.usermgmt.UserManagement
+import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.ApplicationClass
 import com.makeus.blue.viewte.src.BaseActivity
@@ -55,6 +57,7 @@ class MainActivity : BaseActivity(), MainActivityView {
     private lateinit var mClSearch: ConstraintLayout
     private lateinit var mClRecord: ConstraintLayout
     private lateinit var mIvAddCategory: ImageView
+    private lateinit var mClLogout: ConstraintLayout
 
     @SuppressLint("WrongConstant")
     @RequiresApi(Build.VERSION_CODES.P)
@@ -73,6 +76,7 @@ class MainActivity : BaseActivity(), MainActivityView {
         mClRecord = findViewById(R.id.main_cl_mic)
         mIvAddCategory = findViewById(R.id.main_iv_plus)
         mClExpandArea = findViewById(R.id.main_cl_expand_area)
+        mClLogout = findViewById(R.id.main_cl_nav_logout)
 
 //        // get KeyHash
 //        try {
@@ -147,6 +151,18 @@ class MainActivity : BaseActivity(), MainActivityView {
             }
         })
 
+        mClLogout.setOnClickListener(object: OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                UserManagement.getInstance().requestLogout(object : LogoutResponseCallback() {
+                    override fun onCompleteLogout() {
+                        var intent = Intent(this@MainActivity, LoginActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
+                })
+            }
+        })
 
     }
 

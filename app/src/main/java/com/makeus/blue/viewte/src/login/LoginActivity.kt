@@ -36,6 +36,7 @@ class LoginActivity : BaseActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onDestroy() {
+        super.onDestroy()
         Session.getCurrentSession().removeCallback(callback);
     }
 

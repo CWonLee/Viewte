@@ -8,9 +8,14 @@ import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -20,7 +25,6 @@ import com.makeus.blue.viewte.src.BaseActivity
 
 class RecordActivity : BaseActivity(), RecognitionListener {
 
-    private val REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE: Int = 10000
     private val PERMISSIONS_REQUEST_RECORD_AUDIO = 1
     private lateinit var mClStart: ConstraintLayout
     private lateinit var mEtSTT: EditText
@@ -29,6 +33,9 @@ class RecordActivity : BaseActivity(), RecognitionListener {
     private var speech: SpeechRecognizer? = null
     private var recognizerIntent: Intent? = null
     private val LOG_TAG = "VoiceRecognitionActivity"
+    private lateinit var mIvPlay : ImageView
+    private lateinit var mScrollView: ScrollView
+    private lateinit var mllRefresh: LinearLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +44,12 @@ class RecordActivity : BaseActivity(), RecognitionListener {
 
         mClStart = findViewById(R.id.record_cl_start)
         mEtSTT = findViewById(R.id.record_et)
+        mIvPlay = findViewById(R.id.record_iv_play)
+        mScrollView = findViewById(R.id.record_scroll)
+        mllRefresh = findViewById(R.id.record_ll_refresh)
 
         // start speech recogniser
         resetSpeechRecognizer()
-
         // check for permission
 
         // check for permission
@@ -57,8 +66,57 @@ class RecordActivity : BaseActivity(), RecognitionListener {
             return
         }
 
-        setRecogniserIntent();
-        speech!!.startListening(recognizerIntent)
+        mClStart.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                if (!play) {
+                    mIvPlay.setImageResource(R.drawable.ic_stop)
+                    showCustomToast("음성인식 시작")
+                    play = true
+                    mEtSTT.isEnabled = false
+                    setRecogniserIntent();
+                    speech!!.startListening(recognizerIntent)
+                }
+                else {
+                    mIvPlay.setImageResource(R.drawable.ic_record_mic)
+                    showCustomToast("음성인식 완료")
+                    play = false
+                    mEtSTT.isEnabled = true
+                }
+            }
+        })
+
+        mEtSTT.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                if (play) {
+                    mScrollView.post{
+                        mScrollView.fullScroll(View.FOCUS_DOWN)
+                    }
+                }
+                else {
+                    mResultString = s.toString()
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+        })
+
+        mllRefresh.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                mIvPlay.setImageResource(R.drawable.ic_record_mic)
+                showCustomToast("초기화")
+                play = false
+                mEtSTT.isEnabled = true
+                mResultString = ""
+                mEtSTT.setText("")
+            }
+        })
     }
 
     @SuppressLint("LongLogTag")
@@ -119,7 +177,8 @@ class RecordActivity : BaseActivity(), RecognitionListener {
         text = matches!![0]
 
         println(text)
-        mEtSTT.setText(mResultString + text)
+        mEtSTT.setText(mResultString + "\n" + text)
+
     }
 
     override fun onEvent(eventType: Int, params: Bundle?) {
@@ -147,8 +206,13 @@ class RecordActivity : BaseActivity(), RecognitionListener {
 
 
         println(text)
-        mResultString += text
+        mResultString += "\n" + text
         mEtSTT.setText(mResultString)
-        speech!!.startListening(recognizerIntent)
+        if (play) {
+            speech!!.startListening(recognizerIntent)
+        }
+        else {
+            //mIvPlay.setImageResource(R.drawable.ic_record_mic)
+        }
     }
 }

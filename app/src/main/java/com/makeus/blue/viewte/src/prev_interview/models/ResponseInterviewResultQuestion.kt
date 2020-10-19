@@ -1,6 +1,7 @@
 package com.makeus.blue.viewte.src.prev_interview.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 class ResponseInterviewResultQuestion(
     @SerializedName("questionNo")
@@ -13,8 +14,11 @@ class ResponseInterviewResultQuestion(
     private var question: String,
 
     @SerializedName("answer")
-    private var answer: String
-) {
+    private var answer: String,
+
+    @SerializedName("keyword")
+    private var keyword: String
+) : Serializable {
     fun getQuestionNo(): Int {
         return questionNo
     }
@@ -29,5 +33,9 @@ class ResponseInterviewResultQuestion(
 
     fun getAnswer(): String {
         return answer
+    }
+
+    fun getKeyword(): String {
+        return keyword
     }
 }

@@ -125,42 +125,13 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <LinearLayout
-            android:id="@+id/interview_ll_listen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="29dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_hardware_headset_24_px"
-                android:layout_gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="8sp"
-                android:textColor="@color/colorGrey"
-                android:text="듣기"
-                android:fontFamily="@font/notosanskr_regular"
-                android:includeFontPadding="false"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="9dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/interview_ll_reply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/interview_ll_listen"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="29dp">
 
             <ImageView

@@ -16,7 +16,10 @@ data class ResponseInterviewResultInterview(
     private var time: String,
 
     @SerializedName("location")
-    private var location: String
+    private var location: String,
+
+    @SerializedName("imageUrl")
+    private var imageUrl: String
 ) {
     fun getITitle(): String {
         return i_title
@@ -36,5 +39,9 @@ data class ResponseInterviewResultInterview(
 
     fun getLocation(): String {
         return location
+    }
+
+    fun getImageUrl(): String {
+        return imageUrl
     }
 }

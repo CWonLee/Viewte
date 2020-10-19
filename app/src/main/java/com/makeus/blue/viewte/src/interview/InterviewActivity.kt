@@ -24,7 +24,6 @@ class InterviewActivity : BaseActivity() {
 
     private val REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE: Int = 10000
     private lateinit var mClRecord: ConstraintLayout
-    private lateinit var mLlListen: LinearLayout
     private lateinit var mEtStt: EditText
     private val mAudioSource = MediaRecorder.AudioSource.MIC
     private val mSampleRate = 44100
@@ -46,7 +45,6 @@ class InterviewActivity : BaseActivity() {
         setContentView(R.layout.activity_interview)
 
         mClRecord = findViewById(R.id.interview_cl_record)
-        mLlListen = findViewById(R.id.interview_ll_listen)
         mEtStt = findViewById(R.id.interview_et_stt)
     }
 }

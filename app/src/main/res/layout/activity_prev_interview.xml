@@ -86,7 +86,8 @@
                 android:background="@drawable/theme_black_round_20"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="42dp">
+                android:layout_marginTop="42dp"
+                android:layout_marginBottom="12dp">
                 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/prev_interview_rv"

@@ -2,7 +2,6 @@ package com.makeus.blue.viewte.src.prev_interview
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -13,10 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
-import com.makeus.blue.viewte.src.category.CategoryAdapter
+import com.makeus.blue.viewte.src.ice_break.IceBreakActivity
 import com.makeus.blue.viewte.src.interview.InterviewActivity
 import com.makeus.blue.viewte.src.prev_interview.interfaces.GetInterviewAPI
 import com.makeus.blue.viewte.src.prev_interview.models.ResponseInterview
+import com.makeus.blue.viewte.src.prev_interview.models.ResponseInterviewResultQuestion
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +29,9 @@ class PrevInterviewActivity : BaseActivity() {
     private lateinit var mTvDate: TextView
     private lateinit var mIvBackBtn: ImageView
     private lateinit var mClStartInterview: ConstraintLayout
+    private var mQuestionList: ArrayList<ResponseInterviewResultQuestion> = ArrayList()
+    private var mDateString:String = ""
+    private var mInterviewName:String = ""
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,8 +57,12 @@ class PrevInterviewActivity : BaseActivity() {
         })
         mClStartInterview.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
-                var intent = Intent(this@PrevInterviewActivity, InterviewActivity::class.java)
-                startActivity(intent)
+                var nextIntent = Intent(this@PrevInterviewActivity, IceBreakActivity::class.java)
+                nextIntent.putExtra("questionList", mQuestionList)
+                nextIntent.putExtra("interviewNo", intent.getIntExtra("interviewNo", 0))
+                nextIntent.putExtra("interviewTitle", mInterviewName)
+                nextIntent.putExtra("interviewDate", mDateString)
+                startActivity(nextIntent)
             }
         })
     }
@@ -64,6 +71,8 @@ class PrevInterviewActivity : BaseActivity() {
         showProgressDialog()
         val api = GetInterviewAPI.create()
 
+        println("categoryNo : " + intent.getIntExtra("categoriesNo", 0))
+        println("interviewNo : " + intent.getIntExtra("interviewNo", 0))
         api.getInterview(intent.getIntExtra("categoriesNo", 0), intent.getIntExtra("interviewNo", 0)).enqueue(object :
             Callback<ResponseInterview> {
             override fun onResponse(call: Call<ResponseInterview>, response: Response<ResponseInterview>) {
@@ -75,8 +84,29 @@ class PrevInterviewActivity : BaseActivity() {
                     mRecyclerViewAdapter = PrevInterviewAdapter(responseGetInterview.getResult().getQuestionList())
                     mRecyclerView.adapter = mRecyclerViewAdapter
 
+                    for (i in responseGetInterview.getResult().getQuestionList()) {
+                        mQuestionList.add(i)
+                    }
+
+                    mInterviewName = responseGetInterview.getResult().getInterviewList()[0].getITitle()
                     mTvTitle.text = responseGetInterview.getResult().getInterviewList()[0].getITitle()
-                    mTvDate.text = responseGetInterview.getResult().getInterviewList()[0].getDate() + ", " + responseGetInterview.getResult().getInterviewList()[0].getTime()
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getDate()[0]
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getDate()[1]
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getDate()[2]
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getDate()[3]
+                    mDateString += "."
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getDate()[5]
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getDate()[6]
+                    mDateString += "."
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getDate()[8]
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getDate()[9]
+                    mDateString += " "
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getTime()[0]
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getTime()[1]
+                    mDateString += ":"
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getTime()[3]
+                    mDateString += responseGetInterview.getResult().getInterviewList()[0].getTime()[4]
+                    mTvDate.text = mDateString
                 }
                 else {
                     hideProgressDialog()

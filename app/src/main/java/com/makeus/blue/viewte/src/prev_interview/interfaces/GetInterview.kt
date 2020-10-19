@@ -13,7 +13,7 @@ import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
 interface GetInterviewAPI {
-    @GET("/user/categories/:categoriesNo/interview/:interviewNo")
+    @GET("/user/categories/{categoriesNo}/interview/{interviewNo}")
     fun getInterview(@Path("categoriesNo") categoriesNo: Int, @Path("interviewNo") interviewNo: Int): Call<ResponseInterview>
 
     companion object {

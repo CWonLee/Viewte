@@ -26,16 +26,16 @@ class PrevInterviewAdapter(private val items: ArrayList<ResponseInterviewResultQ
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: PrevInterviewAdapter.ViewHolder, position: Int) {
-        holder.bindItems(items[position])
+        holder.bindItems(items[position], position)
 
     }
 
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        fun bindItems(data : ResponseInterviewResultQuestion) {
-            itemView.item_prev_interview_tv_question.text = data.getQuestion()
+        fun bindItems(data : ResponseInterviewResultQuestion, position: Int) {
+            itemView.item_prev_interview_tv_question.text = (position + 1).toString() + ". " + data.getQuestion()
             itemView.item_prev_interview_tv_answer.text = data.getAnswer()
-            itemView.item_prev_interview_tv_keyword.text = "키워드"
+            itemView.item_prev_interview_tv_keyword.text = data.getKeyword()
         }
     }
 

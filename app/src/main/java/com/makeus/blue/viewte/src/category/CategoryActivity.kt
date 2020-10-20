@@ -136,17 +136,17 @@ class CategoryActivity : BaseActivity() {
                         responseGetInterview.getResult().size > 2 -> {
                             for ((cnt, i) in responseGetInterview.getResult().withIndex()) {
                                 if (cnt < 2) {
-                                    mCategoryItemTop.add(i[0])
+                                    mCategoryItemTop.add(i)
                                 }
                                 else {
-                                    mCategoryItemBottom.add(i[0])
+                                    mCategoryItemBottom.add(i)
                                 }
                             }
                             mCategoryItemBottom
                         }
                         else -> {
                             for (i in responseGetInterview.getResult()) {
-                                mCategoryItemTop.add(i[0])
+                                mCategoryItemTop.add(i)
                             }
                         }
                     }

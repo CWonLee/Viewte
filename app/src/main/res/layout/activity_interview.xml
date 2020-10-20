@@ -17,12 +17,14 @@
 
         <TextView
             android:id="@+id/interview_tv_question"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/interview_tv_page"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="35dp"
+            android:layout_marginRight="10dp"
             android:textColor="@color/colorWhite"
             android:textSize="17sp"
             android:fontFamily="@font/notosans_bold"
@@ -50,40 +52,56 @@
             app:layout_constraintTop_toBottomOf="@+id/interview_tv_question"
             android:layout_marginTop="15dp">
 
-            <ImageView
+            <LinearLayout
+                android:id="@+id/interview_ll_prev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/chevron_left"
-                android:layout_marginLeft="38dp"
-                android:layout_gravity="center_vertical"/>
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="이전"
-                android:textColor="@color/colorWhite"
-                android:textSize="12sp"
-                android:layout_gravity="center_vertical"/>
+                android:orientation="horizontal"
+                android:layout_marginLeft="38dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/chevron_left"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이전"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12sp"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/interview_ll_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="다음"
-                android:textColor="@color/colorWhite"
-                android:textSize="12sp"
-                android:layout_gravity="center_vertical"/>
+                android:orientation="horizontal"
+                android:layout_marginRight="38dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/chevron_right"
-                android:layout_marginRight="38dp"
-                android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="다음"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12sp"
+                    android:layout_gravity="center_vertical"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/chevron_right"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -98,21 +116,29 @@
         android:layout_marginLeft="9dp"
         android:layout_marginRight="9dp"
         android:layout_marginTop="27dp">
-        
-        <EditText
-            android:id="@+id/interview_et_stt"
+
+        <ScrollView
+            android:id="@+id/interview_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="마이크를 누르고 말하기 시작하세요!"
-            android:textColorHint="@color/colorGrey"
-            android:textColor="@color/colorWhite"
-            android:textSize="14sp"
-            android:fontFamily="@font/notosans_bold"
-            android:includeFontPadding="false"
-            android:inputType="textMultiLine"
-            android:gravity="left|top"
-            android:padding="14dp"
-            android:background="@drawable/background_transparent"/>
+            android:fillViewport="true">
+
+            <EditText
+                android:id="@+id/interview_et_stt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="마이크를 누르고 말하기 시작하세요!"
+                android:textColorHint="@color/colorGrey"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:inputType="textMultiLine"
+                android:gravity="left|top"
+                android:padding="14dp"
+                android:background="@drawable/background_transparent"/>
+
+        </ScrollView>
         
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -153,6 +179,32 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/interview_tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:fontFamily="@font/notosanskr_regular"
+            android:includeFontPadding="false"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/interview_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toTopOf="@+id/interview_tv_date"
+            app:layout_constraintRight_toRightOf="parent"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="1dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -166,6 +218,7 @@
         android:background="@drawable/theme_interview_round_btn">
 
         <ImageView
+            android:id="@+id/interview_iv_mic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/group_17"

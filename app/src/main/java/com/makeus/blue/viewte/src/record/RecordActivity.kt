@@ -32,7 +32,6 @@ class RecordActivity : BaseActivity(), RecognitionListener {
     var mResultString: String = ""
     private var speech: SpeechRecognizer? = null
     private var recognizerIntent: Intent? = null
-    private val LOG_TAG = "VoiceRecognitionActivity"
     private lateinit var mIvPlay : ImageView
     private lateinit var mScrollView: ScrollView
     private lateinit var mllRefresh: LinearLayout
@@ -119,14 +118,9 @@ class RecordActivity : BaseActivity(), RecognitionListener {
         })
     }
 
-    @SuppressLint("LongLogTag")
     private fun resetSpeechRecognizer() {
         if (speech != null) speech!!.destroy()
         speech = SpeechRecognizer.createSpeechRecognizer(this)
-        Log.i(
-            LOG_TAG,
-            "isRecognitionAvailable: " + SpeechRecognizer.isRecognitionAvailable(this)
-        )
         if (SpeechRecognizer.isRecognitionAvailable(this))
             speech!!.setRecognitionListener(this)
         else finish()
@@ -176,9 +170,10 @@ class RecordActivity : BaseActivity(), RecognitionListener {
         var text = ""
         text = matches!![0]
 
-        println(text)
-        mEtSTT.setText(mResultString + "\n" + text)
-
+        if (play) {
+            mResultString += "\n" + text
+            mEtSTT.setText(mResultString)
+        }
     }
 
     override fun onEvent(eventType: Int, params: Bundle?) {
@@ -204,15 +199,10 @@ class RecordActivity : BaseActivity(), RecognitionListener {
             ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
         var text = matches!![0]
 
-
-        println(text)
-        mResultString += "\n" + text
-        mEtSTT.setText(mResultString)
         if (play) {
+            mResultString += "\n" + text
+            mEtSTT.setText(mResultString)
             speech!!.startListening(recognizerIntent)
-        }
-        else {
-            //mIvPlay.setImageResource(R.drawable.ic_record_mic)
         }
     }
 }

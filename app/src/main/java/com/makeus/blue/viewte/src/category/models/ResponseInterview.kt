@@ -13,7 +13,7 @@ data class ResponseInterview(
     private var message: String,
 
     @SerializedName("result")
-    private var result: ArrayList<ArrayList<ResponseInterviewResult>>
+    private var result: ArrayList<ResponseInterviewResult>
 ) {
     fun IsSuccess(): Boolean {
         return this.isSuccess
@@ -27,7 +27,7 @@ data class ResponseInterview(
         return this.message
     }
 
-    fun getResult(): ArrayList<ArrayList<ResponseInterviewResult>> {
+    fun getResult():ArrayList<ResponseInterviewResult> {
         return this.result
     }
 }

@@ -13,7 +13,7 @@ import com.makeus.blue.viewte.src.main.MainActivity
 
 class SplashActivity : BaseActivity() {
 
-    val SPLASH_TIME_OUT: Long = 3000 //3초간 보여 주고 넘어 간다.
+    val SPLASH_TIME_OUT: Long = 1500 //3초간 보여 주고 넘어 간다.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

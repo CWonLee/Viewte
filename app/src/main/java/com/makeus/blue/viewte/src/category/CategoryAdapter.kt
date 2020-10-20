@@ -55,25 +55,25 @@ class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, pri
             var newDate: String = ""
             newDate = date[0].toString() + date[1] + date[2] + date[3] + "." + date[5] + date[6] + "." + date[8] + date[9] + " "
             when {
-                data.getWeekDay() == 0 -> {
+                data.getWeek() == 0 -> {
                     newDate += "월요일"
                 }
-                data.getWeekDay() == 1 -> {
+                data.getWeek() == 1 -> {
                     newDate += "화요일"
                 }
-                data.getWeekDay() == 2 -> {
+                data.getWeek() == 2 -> {
                     newDate += "수요일"
                 }
-                data.getWeekDay() == 3 -> {
+                data.getWeek() == 3 -> {
                     newDate += "목요일"
                 }
-                data.getWeekDay() == 4 -> {
+                data.getWeek() == 4 -> {
                     newDate += "금요일"
                 }
-                data.getWeekDay() == 5 -> {
+                data.getWeek() == 5 -> {
                     newDate += "토요일"
                 }
-                data.getWeekDay() == 6 -> {
+                data.getWeek() == 6 -> {
                     newDate += "일요일"
                 }
             }

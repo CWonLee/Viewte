@@ -15,8 +15,11 @@ data class ResponseInterviewResult(
     @SerializedName("date")
     private var date: String,
 
-    @SerializedName("weekday")
-    private var weekday: Int
+    @SerializedName("week")
+    private var week: Int,
+
+    @SerializedName("imageUrl")
+    private var imageUrl: String
 ) {
     fun getInterviewNo(): Int {
         return this.interviewNo
@@ -34,7 +37,11 @@ data class ResponseInterviewResult(
         return this.date
     }
 
-    fun getWeekDay(): Int {
-        return this.weekday
+    fun getWeek(): Int {
+        return this.week
+    }
+
+    fun getImageUrl(): String {
+        return this.imageUrl
     }
 }

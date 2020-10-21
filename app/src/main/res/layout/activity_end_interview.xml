@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".src.end_interview.EndInterviewActivity"
+    android:background="@color/colorBackgroundDark">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginRight="40dp"
+        android:fontFamily="@font/notosans_bold"
+        android:text="정말 고생하셨어요!\n인터뷰이께 감사인사 드리는 것\n꼭! 잊지 마세요!"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/pic_end"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

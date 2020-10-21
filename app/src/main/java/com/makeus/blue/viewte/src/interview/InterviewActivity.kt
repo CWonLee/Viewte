@@ -24,12 +24,17 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
+import com.makeus.blue.viewte.src.end_interview.EndInterviewActivity
 import com.makeus.blue.viewte.src.interview.interfaces.QuestionAPI
 import com.makeus.blue.viewte.src.interview.models.RequestQuestion
 import com.makeus.blue.viewte.src.interview.models.RequestQuestionInfo
 import com.makeus.blue.viewte.src.interview.models.ResponseQuestion
 import com.makeus.blue.viewte.src.introduce.IntroduceActivity
 import com.makeus.blue.viewte.src.is_add_question.IsAddQuestionActivity
+import com.makeus.blue.viewte.src.is_add_question.interfaces.AddMemoAPI
+import com.makeus.blue.viewte.src.is_add_question.models.RequestAddMemo
+import com.makeus.blue.viewte.src.is_add_question.models.RequestAddMemoInfo
+import com.makeus.blue.viewte.src.is_add_question.models.ResponseAddMemo
 import com.makeus.blue.viewte.src.main.MainActivity
 import com.makeus.blue.viewte.src.prev_interview.models.ResponseInterviewResultQuestion
 import retrofit2.Call
@@ -201,7 +206,7 @@ class InterviewActivity : BaseActivity(), RecognitionListener {
                         showCustomToast("모든 질문을 완료해주세요")
                     }
                     else {
-                        postQuestion()
+                        postAddMemo()
                     }
                 }
             }
@@ -356,14 +361,41 @@ class InterviewActivity : BaseActivity(), RecognitionListener {
         }
     }
 
-    private fun postQuestion() {
+    private fun postAddMemo() {
         showProgressDialog()
+        val api = AddMemoAPI.create()
+
+        var arraylist : ArrayList<RequestAddMemoInfo> = ArrayList<RequestAddMemoInfo>()
+        for ((cnt, i) in (intent.getSerializableExtra("questionList") as ArrayList<ResponseInterviewResultQuestion>).withIndex()) {
+            arraylist.add(RequestAddMemoInfo(i.getQuestionNo(), intent.getStringArrayListExtra("answerList")[cnt]))
+        }
+
+        api.postAddMemo(RequestAddMemo(arraylist)).enqueue(object : Callback<ResponseAddMemo> {
+            override fun onResponse(call: Call<ResponseAddMemo>, response: Response<ResponseAddMemo>) {
+                var responseAddMemo = response.body()
+
+                if (responseAddMemo!!.IsSuccess() && responseAddMemo.getCode() == 200) {
+
+                    postQuestion()
+                }
+                else {
+                    hideProgressDialog()
+                    showCustomToast(responseAddMemo.getMessage())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseAddMemo>, t: Throwable) {
+                hideProgressDialog()
+                showCustomToast(resources.getString(R.string.network_error))
+            }
+        })
+    }
+
+    private fun postQuestion() {
+        //showProgressDialog()
         val api = QuestionAPI.create()
 
         var arraylist : ArrayList<RequestQuestionInfo> = ArrayList<RequestQuestionInfo>()
-        for ((cnt, i) in (intent.getSerializableExtra("questionList") as ArrayList<ResponseInterviewResultQuestion>).withIndex()) {
-            arraylist.add(RequestQuestionInfo(i.getQuestion(), intent.getStringArrayListExtra("answerList")[cnt]))
-        }
         arraylist.add(RequestQuestionInfo("추가질문", mPlusAnswer))
 
         api.postQuestion(RequestQuestion(intent.getIntExtra("interviewNo", 0), arraylist)).enqueue(object :
@@ -373,9 +405,9 @@ class InterviewActivity : BaseActivity(), RecognitionListener {
 
                 if (responseAddCategory!!.IsSuccess() && responseAddCategory.getCode() == 200) {
 
-                    showCustomToast(responseAddCategory.getMessage())
+                    showCustomToast("인터뷰 등록이 완료되었습니다")
 
-                    var nextIntent = Intent(this@InterviewActivity, MainActivity::class.java)
+                    var nextIntent = Intent(this@InterviewActivity, EndInterviewActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(nextIntent)

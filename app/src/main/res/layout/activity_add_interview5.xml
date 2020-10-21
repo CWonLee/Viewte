@@ -268,17 +268,17 @@
                 android:src="@drawable/icon_trash_gray"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:textSize="8sp"
-                android:textColor="@color/colorGrey"
-                android:text="녹음"
+                android:layout_width="8dp"
+                android:layout_height="16dp"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/notosanskr_demilight"
+                android:includeFontPadding="false"
+                android:text="휴지통"
+                android:textColor="@color/colorGrey"
+                android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginBottom="16dp"/>
+                app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -302,7 +302,7 @@
                 android:includeFontPadding="false"
                 android:textSize="8sp"
                 android:textColor="@color/colorGrey"
-                android:text="녹음"
+                android:text="설정"
                 android:fontFamily="@font/notosanskr_demilight"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

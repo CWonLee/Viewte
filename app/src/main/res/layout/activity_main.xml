@@ -95,8 +95,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             android:layout_marginRight="24dp"
-                            android:src="@color/colorWhite"
-                            android:background="@drawable/theme_profile"/>
+                            android:src="@color/colorWhite" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -278,7 +277,7 @@
                         android:includeFontPadding="false"
                         android:textSize="8sp"
                         android:textColor="@color/colorGrey"
-                        android:text="녹음"
+                        android:text="휴지통"
                         android:fontFamily="@font/notosanskr_demilight"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -307,7 +306,7 @@
                         android:includeFontPadding="false"
                         android:textSize="8sp"
                         android:textColor="@color/colorGrey"
-                        android:text="녹음"
+                        android:text="설정"
                         android:fontFamily="@font/notosanskr_demilight"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"

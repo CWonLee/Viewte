@@ -10,32 +10,34 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.request.RequestOptions
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout
 import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.ApplicationClass
 import com.makeus.blue.viewte.src.BaseActivity
+import com.makeus.blue.viewte.src.GlideApp
 import com.makeus.blue.viewte.src.login.LoginActivity
 import com.makeus.blue.viewte.src.main.interfaces.AddCategoryAPI
 import com.makeus.blue.viewte.src.main.interfaces.GetCategoryAPI
+import com.makeus.blue.viewte.src.main.interfaces.GetUserAPI
 import com.makeus.blue.viewte.src.main.interfaces.MainActivityView
-import com.makeus.blue.viewte.src.main.models.CategoryItem
-import com.makeus.blue.viewte.src.main.models.RequestAddCategory
-import com.makeus.blue.viewte.src.main.models.ResponseAddCategory
-import com.makeus.blue.viewte.src.main.models.ResponseGetCategory
+import com.makeus.blue.viewte.src.main.models.*
 import com.makeus.blue.viewte.src.record.RecordActivity
 import com.makeus.blue.viewte.src.setting.SettingActivity
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.OnClickListener
 import com.orhanobut.dialogplus.ViewHolder
+import kotlinx.android.synthetic.main.item_category_recycler.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,6 +52,7 @@ class MainActivity : BaseActivity(), MainActivityView {
     private lateinit var mRvCategoryBottom: RecyclerView
     private lateinit var mMainCategoryAdapter : MainCategoryAdapter
     private lateinit var mMainCategoryBottomAdapter : MainCategoryAdapter
+    private lateinit var mTvHello: TextView
     private var mCategoryItemTop : ArrayList<CategoryItem> = ArrayList()
     private var mCategoryItemBottom : ArrayList<CategoryItem> = ArrayList()
     private lateinit var mClExpandArea : ConstraintLayout
@@ -82,6 +85,7 @@ class MainActivity : BaseActivity(), MainActivityView {
         mClLogout = findViewById(R.id.main_cl_nav_logout)
         mClSetting = findViewById(R.id.main_cl_setting)
         mClNavSetting = findViewById(R.id.main_cl_nav_set)
+        mTvHello = findViewById(R.id.main_tv_hello)
 
 //        // get KeyHash
 //        try {
@@ -102,6 +106,7 @@ class MainActivity : BaseActivity(), MainActivityView {
         mIvProfile.clipToOutline = true
         collapse(mClExpandArea)
 
+        getUser()
 
         mMainCategoryAdapter = MainCategoryAdapter(mCategoryItemTop, this)
         mRvCategoryTop.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
@@ -335,5 +340,45 @@ class MainActivity : BaseActivity(), MainActivityView {
         a.duration =
             ((initialHeight / v.context.resources.displayMetrics.density).toInt()).toLong()
         v.startAnimation(a)
+    }
+
+    private fun getUser() {
+        showProgressDialog()
+        val api = GetUserAPI.create()
+
+        api.getUser().enqueue(object : Callback<ResponseUser> {
+            override fun onResponse(call: Call<ResponseUser>, response: Response<ResponseUser>) {
+                hideProgressDialog()
+                var responseUser = response.body()
+
+                if (responseUser!!.IsSuccess() && responseUser.getCode() == 200) {
+                    if (responseUser.getResult()[0].getProfileUrl() == null) {
+                        mIvProfile.setImageResource(R.drawable.icon_profile_popup)
+                    }
+                    else {
+                        GlideApp.with(this@MainActivity).load(responseUser.getResult()[0].getProfileUrl())
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(mIvProfile)
+                    }
+                    if (responseUser.getResult()[0].getProfileUrl() == null) {
+                        mIvNavProfile.setImageResource(R.drawable.icon_profile_popup)
+                    }
+                    else {
+                        GlideApp.with(this@MainActivity).load(responseUser.getResult()[0].getProfileUrl())
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(mIvNavProfile)
+                    }
+                    mTvHello.text = "안녕하세요 " + responseUser.getResult()[0].getName() + "님!"
+                }
+                else {
+                    showCustomToast(responseUser.getMessage())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUser>, t: Throwable) {
+                hideProgressDialog()
+                showCustomToast(resources.getString(R.string.network_error))
+            }
+        })
     }
 }

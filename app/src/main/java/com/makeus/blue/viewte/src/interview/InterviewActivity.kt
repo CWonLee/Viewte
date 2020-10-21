@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.media.AudioManager
 import android.media.AudioRecord
 import android.media.AudioTrack
@@ -15,7 +16,10 @@ import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableStringBuilder
 import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -309,18 +313,57 @@ class InterviewActivity : BaseActivity(), RecognitionListener {
             ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
         var text = ""
         text = matches!![0]
-
         println(text)
         if (mIsPlus == 0) {
             if (mPlay) {
                 mResultString[mPage] += "\n" + text
-                mEtSTT.setText(mResultString[mPage])
+                var ssb = SpannableStringBuilder(mResultString[mPage].toString())
+                for (i in mResultString[mPage].indices) {
+                    if (mResultString[mPage].toString()[i] == mQuestionList[mPage].getKeyword()[0]) {
+                        var boolean = true
+                        for (j in mQuestionList[mPage].getKeyword().indices) {
+                            if (i + j >= mResultString[mPage].toString().length) {
+                                boolean = false
+                                break
+                            }
+                            if (mResultString[mPage].toString()[i + j] != mQuestionList[mPage].getKeyword()[j]) {
+                                boolean = false
+                                break
+                            }
+                        }
+                        if (boolean) {
+                            ssb.setSpan(ForegroundColorSpan(Color.parseColor("#456EFF")), i, i + mQuestionList[mPage].getKeyword().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            mEtSTT.text = ssb
+                        }
+                    }
+                }
+                mEtSTT.text = ssb
             }
         }
         else {
             if (mPlay) {
                 mPlusAnswer += "\n" + text
-                mEtSTT.setText(mPlusAnswer)
+                var ssb = SpannableStringBuilder(mPlusAnswer.toString())
+                for (i in mPlusAnswer.indices) {
+                    if (mPlusAnswer.toString()[i] == mQuestionList[mPage].getKeyword()[0]) {
+                        var boolean = true
+                        for (j in mQuestionList[mPage].getKeyword().indices) {
+                            if (i + j >= mPlusAnswer.toString().length) {
+                                boolean = false
+                                break
+                            }
+                            if (mPlusAnswer.toString()[i + j] != mQuestionList[mPage].getKeyword()[j]) {
+                                boolean = false
+                                break
+                            }
+                        }
+                        if (boolean) {
+                            ssb.setSpan(ForegroundColorSpan(Color.parseColor("#456EFF")), i, i + mQuestionList[mPage].getKeyword().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            mEtSTT.text = ssb
+                        }
+                    }
+                }
+                mEtSTT.text = ssb
             }
         }
     }
@@ -348,14 +391,54 @@ class InterviewActivity : BaseActivity(), RecognitionListener {
         if (mIsPlus == 0) {
             if (mPlay) {
                 mResultString[mPage] += "\n" + text
-                mEtSTT.setText(mResultString[mPage])
+                var ssb = SpannableStringBuilder(mResultString[mPage].toString())
+                for (i in mResultString[mPage].indices) {
+                    if (mResultString[mPage].toString()[i] == mQuestionList[mPage].getKeyword()[0]) {
+                        var boolean = true
+                        for (j in mQuestionList[mPage].getKeyword().indices) {
+                            if (i + j >= mResultString[mPage].toString().length) {
+                                boolean = false
+                                break
+                            }
+                            if (mResultString[mPage].toString()[i + j] != mQuestionList[mPage].getKeyword()[j]) {
+                                boolean = false
+                                break
+                            }
+                        }
+                        if (boolean) {
+                            ssb.setSpan(ForegroundColorSpan(Color.parseColor("#456EFF")), i, i + mQuestionList[mPage].getKeyword().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            mEtSTT.text = ssb
+                        }
+                    }
+                }
+                mEtSTT.text = ssb
                 speech!!.startListening(recognizerIntent)
             }
         }
         else {
             if (mPlay) {
                 mPlusAnswer += "\n" + text
-                mEtSTT.setText(mPlusAnswer)
+                var ssb = SpannableStringBuilder(mPlusAnswer.toString())
+                for (i in mPlusAnswer.indices) {
+                    if (mPlusAnswer.toString()[i] == mQuestionList[mPage].getKeyword()[0]) {
+                        var boolean = true
+                        for (j in mQuestionList[mPage].getKeyword().indices) {
+                            if (i + j >= mPlusAnswer.toString().length) {
+                                boolean = false
+                                break
+                            }
+                            if (mPlusAnswer.toString()[i + j] != mQuestionList[mPage].getKeyword()[j]) {
+                                boolean = false
+                                break
+                            }
+                        }
+                        if (boolean) {
+                            ssb.setSpan(ForegroundColorSpan(Color.parseColor("#456EFF")), i, i + mQuestionList[mPage].getKeyword().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            mEtSTT.text = ssb
+                        }
+                    }
+                }
+                mEtSTT.text = ssb
                 speech!!.startListening(recognizerIntent)
             }
         }

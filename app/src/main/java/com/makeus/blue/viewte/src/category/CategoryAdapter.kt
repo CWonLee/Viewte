@@ -2,19 +2,22 @@ package com.makeus.blue.viewte.src.category
 
 import android.content.Context
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.GenericTransitionOptions.with
+import com.bumptech.glide.Glide.with
+import com.bumptech.glide.request.RequestOptions
 import com.makeus.blue.viewte.R
-import com.makeus.blue.viewte.src.add_interview.AddInterview1Activity
-import com.makeus.blue.viewte.src.category.models.CategoryItem
+import com.makeus.blue.viewte.src.GlideApp
+import com.makeus.blue.viewte.src.GlideApp.with
+import com.makeus.blue.viewte.src.MyGlideApp
 import com.makeus.blue.viewte.src.category.models.ResponseInterviewResult
-import com.makeus.blue.viewte.src.interview.InterviewActivity
 import com.makeus.blue.viewte.src.prev_interview.PrevInterviewActivity
 import kotlinx.android.synthetic.main.item_category_recycler.view.*
+
 
 class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, private val context: Context, private val categoryNum: Int): RecyclerView.Adapter<CategoryAdapter.ViewHolder>()  {
 
@@ -48,7 +51,7 @@ class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, pri
     }
 
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         fun bindItems(data : ResponseInterviewResult){
             itemView.item_category_tv_title.text = data.getITitle()
             var date = data.getDate()
@@ -81,8 +84,11 @@ class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, pri
             if (data.getIsMemo() == 'N') {
                 itemView.item_category_iv_mic.visibility = View.GONE
             }
-
-            // 이미지 glide로 넣기
+            
+            
+            GlideApp.with(context).load(data.getImageUrl())
+                .apply(RequestOptions.circleCropTransform())
+                .into(itemView.item_category_iv)
         }
     }
 

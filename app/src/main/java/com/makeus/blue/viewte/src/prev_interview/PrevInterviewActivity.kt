@@ -2,6 +2,7 @@ package com.makeus.blue.viewte.src.prev_interview
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -10,13 +11,16 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.request.RequestOptions
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
+import com.makeus.blue.viewte.src.GlideApp
 import com.makeus.blue.viewte.src.ice_break.IceBreakActivity
 import com.makeus.blue.viewte.src.interview.InterviewActivity
 import com.makeus.blue.viewte.src.prev_interview.interfaces.GetInterviewAPI
 import com.makeus.blue.viewte.src.prev_interview.models.ResponseInterview
 import com.makeus.blue.viewte.src.prev_interview.models.ResponseInterviewResultQuestion
+import kotlinx.android.synthetic.main.item_category_recycler.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +33,7 @@ class PrevInterviewActivity : BaseActivity() {
     private lateinit var mTvDate: TextView
     private lateinit var mIvBackBtn: ImageView
     private lateinit var mClStartInterview: ConstraintLayout
+    private lateinit var mIvMain: ImageView
     private var mQuestionList: ArrayList<ResponseInterviewResultQuestion> = ArrayList()
     private var mDateString:String = ""
     private var mInterviewName:String = ""
@@ -43,6 +48,7 @@ class PrevInterviewActivity : BaseActivity() {
         mTvDate = findViewById(R.id.prev_interview_tv_date)
         mClStartInterview = findViewById(R.id.prev_interview_cl_record)
         mIvBackBtn = findViewById(R.id.prev_interview_iv_back)
+        mIvMain = findViewById(R.id.prev_interview_iv_main)
 
         mRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRecyclerView.setHasFixedSize(true)
@@ -107,6 +113,10 @@ class PrevInterviewActivity : BaseActivity() {
                     mDateString += responseGetInterview.getResult().getInterviewList()[0].getTime()[3]
                     mDateString += responseGetInterview.getResult().getInterviewList()[0].getTime()[4]
                     mTvDate.text = mDateString
+
+                    GlideApp.with(this@PrevInterviewActivity).load(responseGetInterview.getResult().getInterviewList()[0].getImageUrl())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(mIvMain)
                 }
                 else {
                     hideProgressDialog()

@@ -61,6 +61,7 @@ class AddInterview6Activity : BaseActivity() {
                     intent.putExtra("location", getIntent().getStringExtra("location"))
                     intent.putStringArrayListExtra("questionList", getIntent().getStringArrayListExtra("questionList"))
                     intent.putStringArrayListExtra("answerList", mRecyclerAdapter.getAnswer())
+                    intent.putExtra("imageUrl", getIntent().getStringExtra("imageUrl"))
 
                     startActivity(intent)
                 }

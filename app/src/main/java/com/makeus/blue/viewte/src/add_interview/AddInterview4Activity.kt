@@ -82,6 +82,7 @@ class AddInterview4Activity : BaseActivity(), OnMapReadyCallback {
                     intent.putExtra("date", getIntent().getStringExtra("date"))
                     intent.putExtra("time", getIntent().getStringExtra("time"))
                     intent.putExtra("location", mTvLocation.text.toString())
+                    intent.putExtra("imageUrl", getIntent().getStringExtra("imageUrl"))
 
                     startActivity(intent)
                 }

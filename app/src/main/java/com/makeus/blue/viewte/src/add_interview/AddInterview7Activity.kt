@@ -11,8 +11,16 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.add_interview.interfaces.PostInterviewAPI
@@ -23,6 +31,8 @@ import com.makeus.blue.viewte.src.main.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AddInterview7Activity : BaseActivity() {
 
@@ -31,6 +41,8 @@ class AddInterview7Activity : BaseActivity() {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mBtnNext: Button
     private var mKeywordList: ArrayList<String> = ArrayList()
+    private var mStorageRef: StorageReference? = null
+    private var mImageUrl: String = ""
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +81,24 @@ class AddInterview7Activity : BaseActivity() {
                     showCustomToast("답변을 입력해주세요")
                 }
                 else {
-                    addInterview()
+                    mStorageRef = FirebaseStorage.getInstance().reference;
+                    val ref: StorageReference = mStorageRef!!.child(
+                        "images/" + UUID.randomUUID().toString())
+
+
+
+                    ref.putFile(intent.getStringExtra("imageUrl").toUri()).addOnSuccessListener(
+                        OnSuccessListener<UploadTask.TaskSnapshot> { taskSnapshot -> // Get a URL to the uploaded content
+                        taskSnapshot.storage.downloadUrl.addOnSuccessListener {
+                            mImageUrl = it.toString()
+                            addInterview()
+                        }
+                    })
+                        .addOnFailureListener(OnFailureListener {
+                            // Handle unsuccessful uploads
+                            // ...
+                            showCustomToast(resources.getString(R.string.network_error))
+                        })
                 }
             }
         })
@@ -93,9 +122,11 @@ class AddInterview7Activity : BaseActivity() {
             intent.getStringExtra("date"),
             intent.getStringExtra("time"),
             intent.getStringExtra("location"),
-            "image Url",
+            mImageUrl,
             requestInterviewQuestionInfo
         )
+
+        println("ImageUrl == $mImageUrl")
 
         requestInterview.printAll()
 

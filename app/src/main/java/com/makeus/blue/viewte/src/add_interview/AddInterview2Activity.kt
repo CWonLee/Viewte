@@ -84,6 +84,7 @@ class AddInterview2Activity : BaseActivity() {
                 intent.putExtra("i_title", getIntent().getStringExtra("i_title"))
                 intent.putExtra("purpose", getIntent().getStringExtra("purpose"))
                 intent.putExtra("date", dateString)
+                intent.putExtra("imageUrl", getIntent().getStringExtra("imageUrl"))
 
                 startActivity(intent)
             }

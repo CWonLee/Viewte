@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "794060790936",
+    "firebase_url": "https://viewte-4701a.firebaseio.com",
+    "project_id": "viewte-4701a",
+    "storage_bucket": "viewte-4701a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794060790936:android:c4b44021312c94da9f84ed",
+        "android_client_info": {
+          "package_name": "com.makeus.blue.viewte"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794060790936-ucsgqkptp4ue9c498na94pn9grjs1kjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.makeus.blue.viewte",
+            "certificate_hash": "46751e35ff5f850e6dea2ed00f87b925b98671e2"
+          }
+        },
+        {
+          "client_id": "794060790936-irkb0ninj0i1ph88rdaeal42s3cmff2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK1Sqrsagx3i1AK-fmpNXpEmSnNNdfzy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "794060790936-irkb0ninj0i1ph88rdaeal42s3cmff2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

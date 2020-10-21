@@ -49,6 +49,7 @@ class AddInterview3Activity : BaseActivity() {
                 intent.putExtra("purpose", getIntent().getStringExtra("purpose"))
                 intent.putExtra("date", getIntent().getStringExtra("date"))
                 intent.putExtra("time", timeString)
+                intent.putExtra("imageUrl", getIntent().getStringExtra("imageUrl"))
 
                 startActivity(intent)
             }

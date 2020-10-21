@@ -65,6 +65,7 @@ class AddInterview5Activity : BaseActivity() {
                     intent.putExtra("time", getIntent().getStringExtra("time"))
                     intent.putExtra("location", getIntent().getStringExtra("location"))
                     intent.putStringArrayListExtra("questionList", list)
+                    intent.putExtra("imageUrl", getIntent().getStringExtra("imageUrl"))
                     startActivity(intent)
                 }
                 else {

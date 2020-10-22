@@ -1,9 +1,8 @@
 package com.makeus.blue.viewte.src.interview_detail
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
-import android.media.Image
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -20,9 +19,8 @@ import com.makeus.blue.viewte.src.interview_detail.interfaces.PostTrashAPI
 import com.makeus.blue.viewte.src.interview_detail.models.RequestTrash
 import com.makeus.blue.viewte.src.interview_detail.models.ResponseGetMemo
 import com.makeus.blue.viewte.src.interview_detail.models.ResponseTrash
-import com.makeus.blue.viewte.src.login.LoginActivity
 import com.makeus.blue.viewte.src.main.MainActivity
-import com.makeus.blue.viewte.src.prev_interview.PrevInterviewAdapter
+import com.makeus.blue.viewte.src.modify_memo.ModifyMemoActivity
 import com.makeus.blue.viewte.src.prev_interview.interfaces.GetInterviewAPI
 import com.makeus.blue.viewte.src.prev_interview.models.ResponseInterview
 import com.makeus.blue.viewte.src.prev_interview.models.ResponseInterviewResultQuestion
@@ -41,11 +39,13 @@ class InterviewDetailActivity : BaseActivity() {
     private lateinit var mIvRight : ImageView
     private lateinit var mIvBack : ImageView
     private lateinit var mIvTrash : ImageView
+    private lateinit var mIvModify : ImageView
     private var mPage : Int = 0
     private var mMemoNo : Int = -1
     private var mMemo : String = ""
     private var mDateString: String = ""
     private var mQuestionList: ArrayList<ResponseInterviewResultQuestion> = ArrayList()
+    private val MODIFY_REQUEST_CODE = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,9 +60,21 @@ class InterviewDetailActivity : BaseActivity() {
         mIvRight = findViewById(R.id.interview_detail_iv_right)
         mIvBack = findViewById(R.id.interview_detail_iv_back)
         mIvTrash = findViewById(R.id.interview_detail_iv_trash)
+        mIvModify = findViewById(R.id.interview_detail_iv_edit)
 
         getInterview()
 
+        mIvModify.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@InterviewDetailActivity, ModifyMemoActivity::class.java)
+                intent.putExtra("interview_title", mTvTitle.text)
+                intent.putExtra("interview_date", mTvDate.text)
+                intent.putExtra("question", mQuestionList[mPage].getQuestion())
+                intent.putExtra("memo", mMemo)
+                intent.putExtra("memoNo", mMemoNo)
+                startActivityForResult(intent, MODIFY_REQUEST_CODE)
+            }
+        })
         mIvTrash.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 postTrash()
@@ -246,5 +258,15 @@ class InterviewDetailActivity : BaseActivity() {
                 t.printStackTrace()
             }
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == MODIFY_REQUEST_CODE) {
+            if (resultCode != Activity.RESULT_OK) return;
+
+            getMemo(mQuestionList[mPage].getQuestionNo())
+        }
     }
 }

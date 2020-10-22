@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".src.interview_detail.InterviewDetailActivity"></activity>
+        <activity android:name=".src.modify_memo.ModifyMemoActivity"></activity>
+        <activity android:name=".src.interview_detail.InterviewDetailActivity" />
         <activity android:name=".src.end_interview.EndInterviewActivity" />
         <activity android:name=".src.setting.SettingActivity" />
         <activity android:name=".src.finish_interview.FinishInterviewActivity" />

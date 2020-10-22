@@ -1,6 +1,8 @@
 package com.makeus.blue.viewte.src.interview_detail
 
+import android.content.Intent
 import android.graphics.Color
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
@@ -14,7 +16,12 @@ import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.GlideApp
 import com.makeus.blue.viewte.src.interview_detail.interfaces.GetMemoAPI
+import com.makeus.blue.viewte.src.interview_detail.interfaces.PostTrashAPI
+import com.makeus.blue.viewte.src.interview_detail.models.RequestTrash
 import com.makeus.blue.viewte.src.interview_detail.models.ResponseGetMemo
+import com.makeus.blue.viewte.src.interview_detail.models.ResponseTrash
+import com.makeus.blue.viewte.src.login.LoginActivity
+import com.makeus.blue.viewte.src.main.MainActivity
 import com.makeus.blue.viewte.src.prev_interview.PrevInterviewAdapter
 import com.makeus.blue.viewte.src.prev_interview.interfaces.GetInterviewAPI
 import com.makeus.blue.viewte.src.prev_interview.models.ResponseInterview
@@ -33,6 +40,7 @@ class InterviewDetailActivity : BaseActivity() {
     private lateinit var mIvLeft : ImageView
     private lateinit var mIvRight : ImageView
     private lateinit var mIvBack : ImageView
+    private lateinit var mIvTrash : ImageView
     private var mPage : Int = 0
     private var mMemoNo : Int = -1
     private var mMemo : String = ""
@@ -51,9 +59,15 @@ class InterviewDetailActivity : BaseActivity() {
         mIvLeft = findViewById(R.id.interview_detail_iv_left)
         mIvRight = findViewById(R.id.interview_detail_iv_right)
         mIvBack = findViewById(R.id.interview_detail_iv_back)
+        mIvTrash = findViewById(R.id.interview_detail_iv_trash)
 
         getInterview()
 
+        mIvTrash.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                postTrash()
+            }
+        })
         mIvBack.setOnClickListener(object :OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 finish()
@@ -195,6 +209,38 @@ class InterviewDetailActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<ResponseGetMemo>, t: Throwable) {
+                hideProgressDialog()
+                showCustomToast(resources.getString(R.string.network_error))
+                t.printStackTrace()
+            }
+        })
+    }
+
+    private fun postTrash() {
+        showProgressDialog()
+        val api = PostTrashAPI.create()
+
+        println("interviewNo = " + intent.getIntExtra("interviewNo", 0))
+        api.postTrash(RequestTrash(intent.getIntExtra("interviewNo", 0))).enqueue(object :
+            Callback<ResponseTrash> {
+            override fun onResponse(call: Call<ResponseTrash>, response: Response<ResponseTrash>) {
+                var responseTrash = response.body()
+
+                if (responseTrash!!.IsSuccess() && responseTrash.getCode() == 200) {
+                    hideProgressDialog()
+                    showCustomToast(responseTrash.getMessage())
+                    var intent = Intent(this@InterviewDetailActivity, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+                else {
+                    hideProgressDialog()
+                    showCustomToast(responseTrash.getMessage())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTrash>, t: Throwable) {
                 hideProgressDialog()
                 showCustomToast(resources.getString(R.string.network_error))
                 t.printStackTrace()

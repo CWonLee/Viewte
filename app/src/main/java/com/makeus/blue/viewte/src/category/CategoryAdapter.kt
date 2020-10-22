@@ -15,6 +15,7 @@ import com.makeus.blue.viewte.src.GlideApp
 import com.makeus.blue.viewte.src.GlideApp.with
 import com.makeus.blue.viewte.src.MyGlideApp
 import com.makeus.blue.viewte.src.category.models.ResponseInterviewResult
+import com.makeus.blue.viewte.src.interview_detail.InterviewDetailActivity
 import com.makeus.blue.viewte.src.prev_interview.PrevInterviewActivity
 import kotlinx.android.synthetic.main.item_category_recycler.view.*
 
@@ -38,7 +39,10 @@ class CategoryAdapter(private val items: ArrayList<ResponseInterviewResult>, pri
         holder.itemView.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 if (items[position].getIsMemo() == 'Y') {
-
+                    val intent = Intent(context, InterviewDetailActivity::class.java)
+                    intent.putExtra("categoriesNo", categoryNum)
+                    intent.putExtra("interviewNo", items[position].getInterviewNo())
+                    context.startActivity(intent)
                 }
                 else {
                     val intent = Intent(context, PrevInterviewActivity::class.java)

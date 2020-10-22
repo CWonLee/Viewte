@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBackgroundDark">
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_marginBottom="19dp"
@@ -15,14 +15,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:drawableLeft="@drawable/ic_search_search"
-        android:drawableRight="@drawable/ic_mic_search"
-        android:paddingLeft="19dp"
-        android:paddingRight="21dp"
-        android:drawablePadding="27dp"
-        android:hint="Search hint"
-        android:textColor="@color/colorBlack"
-        android:textColorHint="#9e9e9e"/>
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="19dp"
+            android:paddingRight="21dp"
+            android:hint="Search hint"
+            android:textSize="16sp"
+            android:background="@null"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="#9e9e9e"
+            android:layout_marginRight="10dp"/>
+
+        <ImageView
+            android:id="@+id/search_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:src="@drawable/ic_search_search"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,6 @@ class RecordDetailActivity : BaseActivity() {
 
     private lateinit var mIvBack: ImageView
     private lateinit var mTvTitle: TextView
-    private lateinit var mIvModify: ImageView
     private lateinit var mIvDelete: ImageView
     private lateinit var mTvContent: TextView
 
@@ -36,7 +35,6 @@ class RecordDetailActivity : BaseActivity() {
 
         mIvBack = findViewById(R.id.record_detail_iv_back)
         mTvTitle = findViewById(R.id.record_detail_tv_question)
-        mIvModify = findViewById(R.id.record_detail_iv_edit)
         mIvDelete = findViewById(R.id.record_detail_iv_trash)
         mTvContent = findViewById(R.id.record_detail_tv_answer)
 
@@ -45,11 +43,6 @@ class RecordDetailActivity : BaseActivity() {
         mIvBack.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 finish()
-            }
-        })
-        mIvModify.setOnClickListener(object : OnSingleClickListener(){
-            override fun onSingleClick(v: View) {
-
             }
         })
         mIvDelete.setOnClickListener(object : OnSingleClickListener(){

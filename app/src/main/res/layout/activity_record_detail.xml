@@ -82,15 +82,6 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/record_detail_iv_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_editor_mode_24_px"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="19dp"
-                    android:padding="5dp"/>
-
-                <ImageView
                     android:id="@+id/record_detail_iv_trash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

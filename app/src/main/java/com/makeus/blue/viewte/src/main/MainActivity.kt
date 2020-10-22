@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.Transformation
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -45,10 +46,7 @@ import com.makeus.blue.viewte.src.record.RecordActivity
 import com.makeus.blue.viewte.src.record_list.RecordListActivity
 import com.makeus.blue.viewte.src.setting.SettingActivity
 import com.makeus.blue.viewte.src.trash.TrashActivity
-import com.orhanobut.dialogplus.DialogPlus
-import com.orhanobut.dialogplus.Holder
-import com.orhanobut.dialogplus.OnClickListener
-import com.orhanobut.dialogplus.ViewHolder
+import com.orhanobut.dialogplus.*
 import kotlinx.android.synthetic.main.item_category_recycler.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -242,6 +240,13 @@ class MainActivity : BaseActivity(), MainActivityView {
             setContentHolder(holder)
             isCancelable = true
             setGravity(searchGravity)
+            setOnClickListener { dialog, view ->
+                var editText:EditText = dialog.holderView.findViewById(R.id.search_edit_text)
+
+                if (view.id == R.id.search_iv) {
+                    println(editText.text.toString())
+                }
+            }
         }
         builder.create().show()
     }

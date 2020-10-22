@@ -33,6 +33,8 @@ class MainCategoryAdapter(private val items: ArrayList<CategoryItem>, private va
             override fun onSingleClick(v: View) {
                 val intent = Intent(context, CategoryActivity::class.java)
                 intent.putExtra("categoriesNo", items[position].getCategoryNo())
+                intent.putExtra("imageUrl", items[position].getImageUrl())
+                intent.putExtra("categoryName", items[position].getName())
                 context.startActivity(intent)
             }
         })
@@ -45,7 +47,6 @@ class MainCategoryAdapter(private val items: ArrayList<CategoryItem>, private va
             itemView.item_main_category_tv_title.text = data.getName()
             itemView.item_main_category_tv_info.text = data.getCount().toString() + "개, " + data.getMinute().toString() + "분"
             itemView.item_main_category_iv_background.setBackgroundResource(R.drawable.theme_main_category_item)
-            //itemView.item_main_category_iv_background.cropToPadding = true
             itemView.item_main_category_iv_background.clipToOutline = true
             Glide.with(context).load(data.getImageUrl())
                 .centerCrop()

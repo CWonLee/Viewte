@@ -152,6 +152,7 @@
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/category_cl_change_image"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="62dp"
@@ -159,6 +160,18 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp">
+
+                    <ImageView
+                        android:id="@+id/category_iv_category_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:cropToPadding="true"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/theme_category_background_transfrom"/>
 
                     <TextView
                         android:id="@+id/category_tv_big_title"

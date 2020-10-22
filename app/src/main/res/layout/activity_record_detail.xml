@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".src.record_detail.RecordDetailActivity"
+    android:background="@color/colorBackgroundDark">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:background="@drawable/theme_category_item">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/record_detail_top_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+
+            <ImageView
+                android:id="@+id/record_detail_iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/ic_x"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/theme_black_round_20_top"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/record_detail_tv_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="17sp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="horizontal"
+            android:background="@drawable/theme_black_round_20_bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/record_detail_iv_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_editor_mode_24_px"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="19dp"
+                    android:padding="5dp"/>
+
+                <ImageView
+                    android:id="@+id/record_detail_iv_trash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_action_delete_24_px"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="19dp"
+                    android:padding="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/record_detail_tv_answer"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="10dp"
+                            android:textSize="14sp"
+                            android:gravity="left|top"
+                            android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/notosans_bold"
+                            android:includeFontPadding="false" />
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

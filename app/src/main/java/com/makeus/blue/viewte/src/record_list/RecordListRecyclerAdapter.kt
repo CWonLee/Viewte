@@ -1,12 +1,14 @@
 package com.makeus.blue.viewte.src.record_list
 
 import android.content.Context
+import android.content.Intent
 import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.makeus.blue.viewte.R
+import com.makeus.blue.viewte.src.record_detail.RecordDetailActivity
 import com.makeus.blue.viewte.src.record_list.interfaces.RecordListActivityView
 import com.makeus.blue.viewte.src.record_list.models.ResponseGetRecordListResult
 import kotlinx.android.synthetic.main.item_record_list_recycler.view.*
@@ -34,7 +36,9 @@ class RecordListRecyclerAdapter(private val items: ArrayList<ResponseGetRecordLi
 
             itemView.item_record_list_ll.setOnClickListener(object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
-
+                    var intent = Intent(context, RecordDetailActivity::class.java)
+                    intent.putExtra("noiseNo", data.getNoiseNo())
+                    context.startActivity(intent)
                 }
             })
             itemView.item_record_list_iv_delete.setOnClickListener(object : OnSingleClickListener(){

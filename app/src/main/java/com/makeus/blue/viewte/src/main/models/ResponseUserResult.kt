@@ -10,7 +10,10 @@ data class ResponseUserResult(
     private var name: String,
 
     @SerializedName("profileUrl")
-    private var profileUrl: String
+    private var profileUrl: String,
+
+    @SerializedName("cnt")
+    private var cnt: Int
 ) {
     fun getUserNo(): Int {
         return userNo
@@ -22,5 +25,9 @@ data class ResponseUserResult(
 
     fun getProfileUrl() : String {
         return profileUrl
+    }
+
+    fun getCnt(): Int {
+        return cnt
     }
 }

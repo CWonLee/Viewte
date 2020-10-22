@@ -7,6 +7,19 @@
     android:background="@drawable/theme_main_category_item"
     android:layout_marginTop="12dp">
 
+    <ImageView
+        android:id="@+id/item_main_category_iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cropToPadding="true"
+        android:scaleType="centerCrop"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/theme_category_background_transfrom"/>
+
+
     <TextView
         android:id="@+id/item_main_category_tv_title"
         android:layout_width="wrap_content"

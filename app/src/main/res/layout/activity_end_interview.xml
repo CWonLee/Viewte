@@ -25,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="centerCrop"
         android:src="@drawable/pic_end"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

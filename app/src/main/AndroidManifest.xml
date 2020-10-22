@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".src.modify_memo.ModifyMemoActivity"></activity>
+        <activity android:name=".src.trash.TrashActivity"></activity>
+        <activity android:name=".src.modify_memo.ModifyMemoActivity" />
         <activity android:name=".src.interview_detail.InterviewDetailActivity" />
         <activity android:name=".src.end_interview.EndInterviewActivity" />
         <activity android:name=".src.setting.SettingActivity" />
@@ -46,6 +47,16 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/kakaolink_host"
+                    android:scheme="@string/kakao_scheme" />
             </intent-filter>
         </activity>
         <activity android:name=".src.login.LoginActivity" />

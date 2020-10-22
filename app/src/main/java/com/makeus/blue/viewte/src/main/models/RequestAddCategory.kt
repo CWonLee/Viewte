@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class RequestAddCategory (
     @SerializedName("c_title")
-    private var c_title: String
+    private var c_title: String,
+
+    @SerializedName("imageUrl")
+    private var imageUrl: String
 ) {
-    fun getC_title(): String {
-        return c_title
-    }
 }

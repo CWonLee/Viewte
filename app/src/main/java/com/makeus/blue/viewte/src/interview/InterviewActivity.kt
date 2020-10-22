@@ -316,7 +316,12 @@ class InterviewActivity : BaseActivity(), RecognitionListener {
         println(text)
         if (mIsPlus == 0) {
             if (mPlay) {
-                mResultString[mPage] += "\n" + text
+                if (mResultString[mPage] == "") {
+                    mResultString[mPage] = text
+                }
+                else {
+                    mResultString[mPage] += "\n" + text
+                }
                 var ssb = SpannableStringBuilder(mResultString[mPage].toString())
                 for (i in mResultString[mPage].indices) {
                     if (mResultString[mPage].toString()[i] == mQuestionList[mPage].getKeyword()[0]) {
@@ -342,7 +347,12 @@ class InterviewActivity : BaseActivity(), RecognitionListener {
         }
         else {
             if (mPlay) {
-                mPlusAnswer += "\n" + text
+                if (mPlusAnswer == "") {
+                    mPlusAnswer = text
+                }
+                else {
+                    mPlusAnswer += "\n" + text
+                }
                 var ssb = SpannableStringBuilder(mPlusAnswer.toString())
                 for (i in mPlusAnswer.indices) {
                     if (mPlusAnswer.toString()[i] == mQuestionList[mPage].getKeyword()[0]) {
@@ -390,7 +400,12 @@ class InterviewActivity : BaseActivity(), RecognitionListener {
 
         if (mIsPlus == 0) {
             if (mPlay) {
-                mResultString[mPage] += "\n" + text
+                if (mResultString[mPage] == "") {
+                    mResultString[mPage] = text
+                }
+                else {
+                    mResultString[mPage] += "\n" + text
+                }
                 var ssb = SpannableStringBuilder(mResultString[mPage].toString())
                 for (i in mResultString[mPage].indices) {
                     if (mResultString[mPage].toString()[i] == mQuestionList[mPage].getKeyword()[0]) {
@@ -417,7 +432,12 @@ class InterviewActivity : BaseActivity(), RecognitionListener {
         }
         else {
             if (mPlay) {
-                mPlusAnswer += "\n" + text
+                if (mPlusAnswer == "") {
+                    mPlusAnswer = text
+                }
+                else {
+                    mPlusAnswer += "\n" + text
+                }
                 var ssb = SpannableStringBuilder(mPlusAnswer.toString())
                 for (i in mPlusAnswer.indices) {
                     if (mPlusAnswer.toString()[i] == mQuestionList[mPage].getKeyword()[0]) {

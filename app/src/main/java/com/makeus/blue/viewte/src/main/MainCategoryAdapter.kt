@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.category.CategoryActivity
 import com.makeus.blue.viewte.src.main.models.CategoryItem
@@ -37,11 +39,17 @@ class MainCategoryAdapter(private val items: ArrayList<CategoryItem>, private va
     }
 
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         fun bindItems(data : CategoryItem){
             itemView.item_main_category_tv_title.text = data.getName()
             itemView.item_main_category_tv_info.text = data.getCount().toString() + "개, " + data.getMinute().toString() + "분"
+            itemView.item_main_category_iv_background.setBackgroundResource(R.drawable.theme_main_category_item)
+            //itemView.item_main_category_iv_background.cropToPadding = true
+            itemView.item_main_category_iv_background.clipToOutline = true
+            Glide.with(context).load(data.getImageUrl())
+                .centerCrop()
+                .into(itemView.item_main_category_iv_background)
         }
     }
 

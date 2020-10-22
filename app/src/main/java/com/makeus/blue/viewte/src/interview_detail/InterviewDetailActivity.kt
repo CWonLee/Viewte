@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.request.RequestOptions
+import com.kakao.message.template.TextTemplate
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.GlideApp
@@ -40,6 +41,7 @@ class InterviewDetailActivity : BaseActivity() {
     private lateinit var mIvBack : ImageView
     private lateinit var mIvTrash : ImageView
     private lateinit var mIvModify : ImageView
+    //private lateinit var mIvShare: ImageView
     private var mPage : Int = 0
     private var mMemoNo : Int = -1
     private var mMemo : String = ""
@@ -61,6 +63,7 @@ class InterviewDetailActivity : BaseActivity() {
         mIvBack = findViewById(R.id.interview_detail_iv_back)
         mIvTrash = findViewById(R.id.interview_detail_iv_trash)
         mIvModify = findViewById(R.id.interview_detail_iv_edit)
+        //mIvShare = findViewById(R.id.interview_detail_iv_share)
 
         getInterview()
 
@@ -193,25 +196,29 @@ class InterviewDetailActivity : BaseActivity() {
                     println(responseGetMemo.getResult()[0].getMemo())
                     mMemo = responseGetMemo.getResult()[0].getMemo()
                     mMemoNo = responseGetMemo.getResult()[0].getMemoNo()
+
                     var ssb = SpannableStringBuilder(mMemo.toString())
-                    for (i in mMemo.indices) {
-                        if (mMemo.toString()[i] == mQuestionList[mPage].getKeyword()[0]) {
-                            var boolean = true
-                            for (j in mQuestionList[mPage].getKeyword().indices) {
-                                if (i + j >= mMemo.toString().length) {
-                                    boolean = false
-                                    break
+                    if (mQuestionList[mPage].getKeyword() != null) {
+                        for (i in mMemo.indices) {
+                            if (mMemo.toString()[i] == mQuestionList[mPage].getKeyword()[0]) {
+                                var boolean = true
+                                for (j in mQuestionList[mPage].getKeyword().indices) {
+                                    if (i + j >= mMemo.toString().length) {
+                                        boolean = false
+                                        break
+                                    }
+                                    if (mMemo.toString()[i + j] != mQuestionList[mPage].getKeyword()[j]) {
+                                        boolean = false
+                                        break
+                                    }
                                 }
-                                if (mMemo.toString()[i + j] != mQuestionList[mPage].getKeyword()[j]) {
-                                    boolean = false
-                                    break
+                                if (boolean) {
+                                    ssb.setSpan(ForegroundColorSpan(Color.parseColor("#456EFF")), i, i + mQuestionList[mPage].getKeyword().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                                 }
-                            }
-                            if (boolean) {
-                                ssb.setSpan(ForegroundColorSpan(Color.parseColor("#456EFF")), i, i + mQuestionList[mPage].getKeyword().length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                             }
                         }
                     }
+
                     mTvAnswer.text = ssb
                 }
                 else {

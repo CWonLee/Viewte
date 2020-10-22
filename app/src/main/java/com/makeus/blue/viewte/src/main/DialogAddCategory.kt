@@ -2,21 +2,31 @@ package com.makeus.blue.viewte.src.main
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat.startActivityForResult
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.main.interfaces.MainActivityView
 
-class DialogAddCategory(context: Context, var mainActivityView: MainActivityView) : Dialog(context) {
+class DialogAddCategory(context: Context, var mainActivityView: MainActivityView, var pickImage: Boolean, var imageUrl: String, var name: String) : Dialog(context) {
 
     private lateinit var mTvAdd: TextView
     private lateinit var mTvCancel: TextView
     private lateinit var mEtCategory: EditText
+    private lateinit var mClImage: ConstraintLayout
+    private lateinit var mIvImage: ImageView
+    private lateinit var mIvImageVisible: ImageView
+    private var IMAGE_PICK_CODE = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +41,17 @@ class DialogAddCategory(context: Context, var mainActivityView: MainActivityView
         mTvAdd = findViewById(R.id.custom_dialog_add_category_tv_add)
         mTvCancel = findViewById(R.id.custom_dialog_add_category_tv_cancel)
         mEtCategory = findViewById(R.id.custom_dialog_add_category_et)
+        mClImage = findViewById(R.id.custom_dialog_add_category_cl_photo)
+        mIvImage = findViewById(R.id.custom_dialog_add_category_photo)
+        mIvImageVisible = findViewById(R.id.custom_dialog_add_category_add_photo)
+
+        if (pickImage) {
+            Glide.with(context).load(imageUrl)
+                .apply(RequestOptions.circleCropTransform())
+                .into(mIvImage)
+            mIvImageVisible.visibility = View.GONE
+            mEtCategory.setText(name)
+        }
 
         mTvCancel.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
@@ -43,9 +64,15 @@ class DialogAddCategory(context: Context, var mainActivityView: MainActivityView
                     Toast.makeText(context, "카테고리를 입력해주세요", Toast.LENGTH_LONG).show()
                 }
                 else {
-                    mainActivityView.addCategory(mEtCategory.text.toString())
+                    mainActivityView.addCategory(mEtCategory.text.toString(), imageUrl)
                     dismiss()
                 }
+            }
+        })
+        mClImage.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                mainActivityView.pickImage(mEtCategory.text.toString())
+                dismiss()
             }
         })
     }

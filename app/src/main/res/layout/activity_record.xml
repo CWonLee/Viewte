@@ -100,6 +100,36 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/record_tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="저장하기"
+            android:textSize="12sp"
+            android:textColor="@color/colorHighlightBlue"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"/>
+        
+        <EditText
+            android:id="@+id/record_et_title"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/background_transparent"
+            android:gravity="right"
+            android:hint="제목을 입력해주세요"
+            android:textSize="12sp"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGrey"
+            android:inputType="text"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

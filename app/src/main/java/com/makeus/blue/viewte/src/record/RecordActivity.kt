@@ -12,15 +12,23 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ScrollView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
+import com.makeus.blue.viewte.src.login.LoginActivity
+import com.makeus.blue.viewte.src.main.MainActivity
+import com.makeus.blue.viewte.src.main.interfaces.AddCategoryAPI
+import com.makeus.blue.viewte.src.main.models.RequestAddCategory
+import com.makeus.blue.viewte.src.main.models.ResponseAddCategory
+import com.makeus.blue.viewte.src.record.interfaces.RecordAPI
+import com.makeus.blue.viewte.src.record.models.RequestRecord
+import com.makeus.blue.viewte.src.record.models.ResponseRecord
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class RecordActivity : BaseActivity(), RecognitionListener {
@@ -35,6 +43,8 @@ class RecordActivity : BaseActivity(), RecognitionListener {
     private lateinit var mIvPlay : ImageView
     private lateinit var mScrollView: ScrollView
     private lateinit var mllRefresh: LinearLayout
+    private lateinit var mTvSave: TextView
+    private lateinit var mEtTitle: EditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +56,8 @@ class RecordActivity : BaseActivity(), RecognitionListener {
         mIvPlay = findViewById(R.id.record_iv_play)
         mScrollView = findViewById(R.id.record_scroll)
         mllRefresh = findViewById(R.id.record_ll_refresh)
+        mTvSave = findViewById(R.id.record_tv_save)
+        mEtTitle = findViewById(R.id.record_et_title)
 
         // start speech recogniser
         resetSpeechRecognizer()
@@ -65,6 +77,26 @@ class RecordActivity : BaseActivity(), RecognitionListener {
             return
         }
 
+        mTvSave.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                if (play) {
+                    showCustomToast("녹음을 완료해주세요")
+                }
+                else {
+                    if (mEtSTT.text.toString() == "") {
+                        showCustomToast("녹음을 완료해주세요")    
+                    }
+                    else {
+                        if (mEtTitle.text.toString() == "") {
+                            showCustomToast("제목을 입력해주세요")
+                        }
+                        else {
+                            postRecord()
+                        }
+                    }
+                }
+            }
+        })
         mClStart.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 if (!play) {
@@ -204,5 +236,37 @@ class RecordActivity : BaseActivity(), RecognitionListener {
             mEtSTT.setText(mResultString)
             speech!!.startListening(recognizerIntent)
         }
+    }
+
+    private fun postRecord() {
+        showProgressDialog()
+
+        val api = RecordAPI.create()
+
+        api.postRecord(RequestRecord(mEtTitle.text.toString(), mEtSTT.text.toString())).enqueue(object :
+            Callback<ResponseRecord> {
+            override fun onResponse(call: Call<ResponseRecord>, response: Response<ResponseRecord>) {
+                var responseRecord = response.body()
+
+                hideProgressDialog()
+                if (responseRecord!!.IsSuccess() && responseRecord.getCode() == 200) {
+                    showCustomToast(responseRecord.getMessage())
+
+                    var intent = Intent(this@RecordActivity, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+                else {
+                    hideProgressDialog()
+                    showCustomToast(responseRecord.getMessage())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseRecord>, t: Throwable) {
+                hideProgressDialog()
+                showCustomToast(resources.getString(R.string.network_error))
+            }
+        })
     }
 }

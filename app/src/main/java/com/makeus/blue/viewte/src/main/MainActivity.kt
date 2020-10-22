@@ -42,6 +42,7 @@ import com.makeus.blue.viewte.src.main.interfaces.GetUserAPI
 import com.makeus.blue.viewte.src.main.interfaces.MainActivityView
 import com.makeus.blue.viewte.src.main.models.*
 import com.makeus.blue.viewte.src.record.RecordActivity
+import com.makeus.blue.viewte.src.record_list.RecordListActivity
 import com.makeus.blue.viewte.src.setting.SettingActivity
 import com.makeus.blue.viewte.src.trash.TrashActivity
 import com.orhanobut.dialogplus.DialogPlus
@@ -77,6 +78,7 @@ class MainActivity : BaseActivity(), MainActivityView {
     private lateinit var mClLogout: ConstraintLayout
     private lateinit var mClSetting: ConstraintLayout
     private lateinit var mClNavSetting: ConstraintLayout
+    private lateinit var mClNavRecordList: ConstraintLayout
     private lateinit var mTvInterviewCnt : TextView
     private lateinit var mClTrash : ConstraintLayout
     private var PERMISSION_PICK_IMAGE = 1
@@ -107,6 +109,7 @@ class MainActivity : BaseActivity(), MainActivityView {
         mTvHello = findViewById(R.id.main_tv_hello)
         mTvInterviewCnt = findViewById(R.id.main_tv_interview_time)
         mClTrash = findViewById(R.id.main_cl_trash)
+        mClNavRecordList = findViewById(R.id.main_cl_nav_record_memo)
 
 //        // get KeyHash
 //        try {
@@ -144,6 +147,12 @@ class MainActivity : BaseActivity(), MainActivityView {
 
         getCategory()
 
+        mClNavRecordList.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@MainActivity, RecordListActivity::class.java)
+                startActivity(intent)
+            }
+        })
         mClTrash.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 var intent = Intent(this@MainActivity, TrashActivity::class.java)

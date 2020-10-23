@@ -26,6 +26,7 @@ import com.makeus.blue.viewte.src.main.models.ResponseAddCategory
 import com.makeus.blue.viewte.src.record.interfaces.RecordAPI
 import com.makeus.blue.viewte.src.record.models.RequestRecord
 import com.makeus.blue.viewte.src.record.models.ResponseRecord
+import kotlinx.android.synthetic.main.activity_record.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -77,6 +78,11 @@ class RecordActivity : BaseActivity(), RecognitionListener {
             return
         }
 
+        record_iv_x.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                finish()
+            }
+        })
         mTvSave.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 if (play) {

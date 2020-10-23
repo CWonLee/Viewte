@@ -10,7 +10,10 @@ data class ResponseGetCategoryResult (
     private var c_title: String,
 
     @SerializedName("imageUrl")
-    private var imageUrl: String
+    private var imageUrl: String,
+
+    @SerializedName("count")
+    private var count: Int
 ) {
     fun getCategoriesNo(): Int {
         return categoriesNo
@@ -22,5 +25,9 @@ data class ResponseGetCategoryResult (
 
     fun getImageUrl(): String {
         return imageUrl
+    }
+
+    fun getCount(): Int {
+        return count
     }
 }

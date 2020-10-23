@@ -45,6 +45,7 @@ import com.makeus.blue.viewte.src.search_result.SearchResultActivity
 import com.makeus.blue.viewte.src.setting.SettingActivity
 import com.makeus.blue.viewte.src.trash.TrashActivity
 import com.orhanobut.dialogplus.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_category_recycler.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -284,10 +285,10 @@ class MainActivity : BaseActivity(), MainActivityView {
                     var cnt : Int = 0
                     for (i in responseGetCategory.getResult()) {
                         if (cnt < 3) {
-                            mCategoryItemTop.add(CategoryItem(i.getC_title(), 0, 0, i.getCategoriesNo(), i.getImageUrl()))
+                            mCategoryItemTop.add(CategoryItem(i.getC_title(), i.getCount(), 0, i.getCategoriesNo(), i.getImageUrl()))
                         }
                         else {
-                            mCategoryItemBottom.add(CategoryItem(i.getC_title(), 0, 0, i.getCategoriesNo(), i.getImageUrl()))
+                            mCategoryItemBottom.add(CategoryItem(i.getC_title(), i.getCount(), 0, i.getCategoriesNo(), i.getImageUrl()))
                         }
                         cnt++
                     }
@@ -404,6 +405,7 @@ class MainActivity : BaseActivity(), MainActivityView {
                     }
                     mTvHello.text = "안녕하세요 " + responseUser.getResult()[0].getName() + "님!"
                     mTvInterviewCnt.text = "뷰트와 함께한 인터뷰," + responseUser.getResult()[0].getCnt() + "개"
+                    main_tv_nav_record_count.text = responseUser.getResult()[0].getCnt().toString()+ "개"
                 }
                 else {
                     showCustomToast(responseUser.getMessage())

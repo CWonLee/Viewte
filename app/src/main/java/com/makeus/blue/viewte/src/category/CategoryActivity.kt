@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.Transformation
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -28,19 +29,33 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import com.kakao.usermgmt.UserManagement
+import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.BaseActivity
+import com.makeus.blue.viewte.src.GlideApp
 import com.makeus.blue.viewte.src.add_interview.AddInterview1Activity
 import com.makeus.blue.viewte.src.category.interfaces.GetInterviewAPI
 import com.makeus.blue.viewte.src.category.interfaces.PatchCategoryAPI
 import com.makeus.blue.viewte.src.category.models.*
+import com.makeus.blue.viewte.src.login.LoginActivity
+import com.makeus.blue.viewte.src.main.MainActivity
 import com.makeus.blue.viewte.src.main.interfaces.AddCategoryAPI
+import com.makeus.blue.viewte.src.main.interfaces.GetUserAPI
+import com.makeus.blue.viewte.src.main.interfaces.SearchAPI
 import com.makeus.blue.viewte.src.main.models.RequestAddCategory
 import com.makeus.blue.viewte.src.main.models.ResponseAddCategory
+import com.makeus.blue.viewte.src.main.models.ResponseSearch
+import com.makeus.blue.viewte.src.main.models.ResponseUser
 import com.makeus.blue.viewte.src.record.RecordActivity
+import com.makeus.blue.viewte.src.record_list.RecordListActivity
+import com.makeus.blue.viewte.src.search_result.SearchResultActivity
+import com.makeus.blue.viewte.src.setting.SettingActivity
+import com.makeus.blue.viewte.src.trash.TrashActivity
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
+import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.item_main_category_recycler.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,6 +85,17 @@ class CategoryActivity : BaseActivity() {
     private var PERMISSION_PICK_IMAGE = 1
     private var IMAGE_PICK_CODE = 2
     private var mStorageRef: StorageReference? = null
+    private lateinit var mClHome : ConstraintLayout
+    private lateinit var mClSearch : ConstraintLayout
+    private lateinit var mClRecord : ConstraintLayout
+    private lateinit var mClTrash : ConstraintLayout
+    private lateinit var mClSetting : ConstraintLayout
+    private lateinit var mNavClSetting : ConstraintLayout
+    private lateinit var mNavClRecordList : ConstraintLayout
+    private lateinit var mNavClTrash : ConstraintLayout
+    private lateinit var mNavClLogout : ConstraintLayout
+    private lateinit var mIvProfile : ImageView
+
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +114,19 @@ class CategoryActivity : BaseActivity() {
         mIvImage = findViewById(R.id.category_iv_category_image)
         mTvCategoryTitle = findViewById(R.id.category_tv_big_title)
         mClChangeImage = findViewById(R.id.category_cl_change_image)
+        mClHome = findViewById(R.id.category_cl_home)
+        mClSearch = findViewById(R.id.category_cl_search)
+        mClRecord = findViewById(R.id.category_cl_mic)
+        mClTrash = findViewById(R.id.category_cl_trash)
+        mClSetting = findViewById(R.id.category_cl_setting)
+        mNavClSetting = findViewById(R.id.category_cl_nav_set)
+        mNavClRecordList = findViewById(R.id.category_cl_nav_record_memo)
+        mNavClTrash = findViewById(R.id.category_cl_nav_trash)
+        mNavClLogout = findViewById(R.id.category_cl_nav_logout)
+        mIvProfile = findViewById(R.id.category_iv_nav_profile)
 
+
+        category_tv_big_info.text = intent.getIntExtra("categoryCount", 0).toString() + "개"
         mTvCategoryTitle.text = intent.getStringExtra("categoryName")
         mIvNavProfile.clipToOutline = true
         collapse(mClExpandArea)
@@ -112,6 +150,69 @@ class CategoryActivity : BaseActivity() {
         mRvCategoryBottom.isNestedScrollingEnabled = false
 
         getInterview()
+        getUser()
+
+        mClHome.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@CategoryActivity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+        })
+        mClSearch.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                showSearchDialog()
+            }
+        })
+        mClRecord.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@CategoryActivity, RecordActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        mClTrash.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@CategoryActivity, TrashActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        mClSetting.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@CategoryActivity, SettingActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        mNavClSetting.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@CategoryActivity, SettingActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        mNavClRecordList.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@CategoryActivity, RecordListActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        mNavClTrash.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@CategoryActivity, TrashActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        mNavClLogout.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                UserManagement.getInstance().requestLogout(object : LogoutResponseCallback() {
+                    override fun onCompleteLogout() {
+                        var intent = Intent(this@CategoryActivity, LoginActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
+                })
+            }
+        })
 
         mClChangeImage.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
@@ -344,6 +445,96 @@ class CategoryActivity : BaseActivity() {
                 hideProgressDialog()
                 showCustomToast(resources.getString(R.string.network_error))
                 t.printStackTrace()
+            }
+        })
+    }
+
+    private fun showSearchDialog() {
+        val searchGravity: Int = Gravity.TOP
+        val holder: Holder
+
+        holder = ViewHolder(R.layout.dialog_search)
+
+        val builder = DialogPlus.newDialog(this).apply {
+            setContentHolder(holder)
+            isCancelable = true
+            setGravity(searchGravity)
+            setOnClickListener { dialog, view ->
+                var editText: EditText = dialog.holderView.findViewById(R.id.search_edit_text)
+
+                if (view.id == R.id.search_iv) {
+                    if (editText.text.toString() != "") {
+                        getSearch(editText.text.toString())
+                    }
+                }
+            }
+        }
+        builder.create().show()
+    }
+
+    private fun getSearch(content: String) {
+        val api = SearchAPI.create()
+
+        api.getSearch(content).enqueue(object : Callback<ResponseSearch> {
+            override fun onResponse(call: Call<ResponseSearch>, response: Response<ResponseSearch>) {
+                var responseSearch = response.body()
+
+                if (responseSearch!!.IsSuccess() && responseSearch.getCode() == 200) {
+
+                    var intent = Intent(this@CategoryActivity, SearchResultActivity::class.java)
+                    intent.putExtra("SearchResult", responseSearch.getResult())
+                    startActivity(intent)
+                }
+                else {
+                    hideProgressDialog()
+                    showCustomToast(responseSearch.getMessage())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseSearch>, t: Throwable) {
+                hideProgressDialog()
+                showCustomToast(resources.getString(R.string.network_error))
+            }
+        })
+    }
+
+    private fun getUser() {
+        showProgressDialog()
+        val api = GetUserAPI.create()
+
+        api.getUser().enqueue(object : Callback<ResponseUser> {
+            override fun onResponse(call: Call<ResponseUser>, response: Response<ResponseUser>) {
+                hideProgressDialog()
+                var responseUser = response.body()
+
+                if (responseUser!!.IsSuccess() && responseUser.getCode() == 200) {
+                    if (responseUser.getResult()[0].getProfileUrl() == null) {
+                        mIvProfile.setImageResource(R.drawable.icon_profile_popup)
+                    }
+                    else {
+                        GlideApp.with(this@CategoryActivity).load(responseUser.getResult()[0].getProfileUrl())
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(mIvProfile)
+                    }
+                    if (responseUser.getResult()[0].getProfileUrl() == null) {
+                        mIvNavProfile.setImageResource(R.drawable.icon_profile_popup)
+                    }
+                    else {
+                        GlideApp.with(this@CategoryActivity).load(responseUser.getResult()[0].getProfileUrl())
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(mIvNavProfile)
+                    }
+
+                    category_tv_nav_record_count.text = responseUser.getResult()[0].getCnt().toString() + "개"
+                }
+                else {
+                    showCustomToast(responseUser.getMessage())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUser>, t: Throwable) {
+                hideProgressDialog()
+                showCustomToast(resources.getString(R.string.network_error))
             }
         })
     }

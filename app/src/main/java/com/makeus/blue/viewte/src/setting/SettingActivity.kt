@@ -110,6 +110,12 @@ class SettingActivity : BaseActivity(), SettingActivityView {
 
     override fun changeUser(name: String, imageUrl: String) {
         showProgressDialog()
+
+        if (imageUrl.length >= 4 && imageUrl[0] == 'h' && imageUrl[1] == 't' && imageUrl[2] == 't' && imageUrl[3] == 'p') {
+            patchUser(name, imageUrl)
+            return
+        }
+
         mStorageRef = FirebaseStorage.getInstance().reference;
         val ref: StorageReference = mStorageRef!!.child(
             "images/" + UUID.randomUUID().toString())
@@ -186,6 +192,9 @@ class SettingActivity : BaseActivity(), SettingActivityView {
 
     private fun patchUser(name: String, imageUrl: String) {
         val api = PatchUserAPI.create()
+
+        println("name = $name")
+        println("imageUrl = $imageUrl")
 
         api.patchUser(RequestPatchUser(imageUrl, name)).enqueue(object : Callback<ResponsePatchUser> {
             override fun onResponse(call: Call<ResponsePatchUser>, response: Response<ResponsePatchUser>) {

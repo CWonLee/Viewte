@@ -29,7 +29,8 @@
             android:background="@null"
             android:textColor="@color/colorBlack"
             android:textColorHint="#9e9e9e"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:inputType="text"/>
 
         <ImageView
             android:id="@+id/search_iv"

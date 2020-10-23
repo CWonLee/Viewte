@@ -40,6 +40,7 @@ class MainCategoryAdapter(private val items: ArrayList<CategoryItem>, private va
                     intent.putExtra("categoriesNo", items[position].getCategoryNo())
                     intent.putExtra("imageUrl", items[position].getImageUrl())
                     intent.putExtra("categoryName", items[position].getName())
+                    intent.putExtra("categoryCount", items[position].getCount())
                     context.startActivity(intent)
                 }
             }
@@ -51,7 +52,10 @@ class MainCategoryAdapter(private val items: ArrayList<CategoryItem>, private va
 
         fun bindItems(data : CategoryItem){
             itemView.item_main_category_tv_title.text = data.getName()
-            itemView.item_main_category_tv_info.text = data.getCount().toString() + "개, " + data.getMinute().toString() + "분"
+            if (data.getCategoryNo() == -1) {
+                itemView.item_main_category_tv_info.visibility = View.GONE
+            }
+            itemView.item_main_category_tv_info.text = data.getCount().toString() + "개"
             itemView.item_main_category_iv_background.setBackgroundResource(R.drawable.theme_main_category_item)
             itemView.item_main_category_iv_background.clipToOutline = true
             Glide.with(context).load(data.getImageUrl())

@@ -404,7 +404,7 @@
                         android:id="@+id/category_tv_nav_record_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/main_tv_nav_text"
+                        app:layout_constraintTop_toBottomOf="@+id/category_tv_nav_text"
                         app:layout_constraintRight_toRightOf="parent"
                         android:layout_marginRight="18dp"
                         android:fontFamily="@font/notosans_bold"
@@ -481,6 +481,28 @@
                             android:layout_marginLeft="47dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:text="휴지통"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/notosanskr_regular"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/category_cl_nav_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:layout_marginLeft="47dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:text="로그아웃"
                             android:textColor="@color/colorWhite"
                             android:textSize="16sp"
                             android:fontFamily="@font/notosanskr_regular"/>

@@ -11,10 +11,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.makeus.blue.viewte.R
 import com.makeus.blue.viewte.src.category.CategoryActivity
+import com.makeus.blue.viewte.src.main.interfaces.MainActivityView
 import com.makeus.blue.viewte.src.main.models.CategoryItem
 import kotlinx.android.synthetic.main.item_main_category_recycler.view.*
 
-class MainCategoryAdapter(private val items: ArrayList<CategoryItem>, private val context: Context):RecyclerView.Adapter<MainCategoryAdapter.ViewHolder>()  {
+class MainCategoryAdapter(private val items: ArrayList<CategoryItem>, private val context: Context, private val mainActivityView: MainActivityView):RecyclerView.Adapter<MainCategoryAdapter.ViewHolder>()  {
 
     //아이템의 갯수
     override fun getItemCount(): Int {
@@ -31,11 +32,16 @@ class MainCategoryAdapter(private val items: ArrayList<CategoryItem>, private va
         holder.bindItems(items[position])
         holder.itemView.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
-                val intent = Intent(context, CategoryActivity::class.java)
-                intent.putExtra("categoriesNo", items[position].getCategoryNo())
-                intent.putExtra("imageUrl", items[position].getImageUrl())
-                intent.putExtra("categoryName", items[position].getName())
-                context.startActivity(intent)
+                if (items[position].getCategoryNo() == -1) {
+                    mainActivityView.makeNewCategory()
+                }
+                else {
+                    val intent = Intent(context, CategoryActivity::class.java)
+                    intent.putExtra("categoriesNo", items[position].getCategoryNo())
+                    intent.putExtra("imageUrl", items[position].getImageUrl())
+                    intent.putExtra("categoryName", items[position].getName())
+                    context.startActivity(intent)
+                }
             }
         })
     }

@@ -4,4 +4,6 @@ interface MainActivityView {
     fun addCategory(name: String, imageUrl: String)
 
     fun pickImage(name: String)
+
+    fun makeNewCategory()
 }

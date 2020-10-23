@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".src.record_detail.RecordDetailActivity"></activity>
+        <activity android:name=".src.search_result.SearchResultActivity"></activity>
+        <activity android:name=".src.record_detail.RecordDetailActivity" />
         <activity android:name=".src.record_list.RecordListActivity" />
         <activity android:name=".src.trash.TrashActivity" />
         <activity android:name=".src.modify_memo.ModifyMemoActivity" />

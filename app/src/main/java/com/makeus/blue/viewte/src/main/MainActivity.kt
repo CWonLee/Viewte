@@ -37,13 +37,11 @@ import com.makeus.blue.viewte.src.ApplicationClass
 import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.GlideApp
 import com.makeus.blue.viewte.src.login.LoginActivity
-import com.makeus.blue.viewte.src.main.interfaces.AddCategoryAPI
-import com.makeus.blue.viewte.src.main.interfaces.GetCategoryAPI
-import com.makeus.blue.viewte.src.main.interfaces.GetUserAPI
-import com.makeus.blue.viewte.src.main.interfaces.MainActivityView
+import com.makeus.blue.viewte.src.main.interfaces.*
 import com.makeus.blue.viewte.src.main.models.*
 import com.makeus.blue.viewte.src.record.RecordActivity
 import com.makeus.blue.viewte.src.record_list.RecordListActivity
+import com.makeus.blue.viewte.src.search_result.SearchResultActivity
 import com.makeus.blue.viewte.src.setting.SettingActivity
 import com.makeus.blue.viewte.src.trash.TrashActivity
 import com.orhanobut.dialogplus.*
@@ -79,10 +77,12 @@ class MainActivity : BaseActivity(), MainActivityView {
     private lateinit var mClNavRecordList: ConstraintLayout
     private lateinit var mTvInterviewCnt : TextView
     private lateinit var mClTrash : ConstraintLayout
+    private lateinit var mClHome : ConstraintLayout
     private var PERMISSION_PICK_IMAGE = 1
     private var IMAGE_PICK_CODE = 2
     private var mDialogCategoryName = ""
     private var mStorageRef: StorageReference? = null
+    private lateinit var mNavClTrash : ConstraintLayout
 
     @SuppressLint("WrongConstant")
     @RequiresApi(Build.VERSION_CODES.P)
@@ -108,6 +108,8 @@ class MainActivity : BaseActivity(), MainActivityView {
         mTvInterviewCnt = findViewById(R.id.main_tv_interview_time)
         mClTrash = findViewById(R.id.main_cl_trash)
         mClNavRecordList = findViewById(R.id.main_cl_nav_record_memo)
+        mClHome = findViewById(R.id.main_cl_home)
+        mNavClTrash = findViewById(R.id.main_cl_nav_trash)
 
 //        // get KeyHash
 //        try {
@@ -130,14 +132,14 @@ class MainActivity : BaseActivity(), MainActivityView {
 
         getUser()
 
-        mMainCategoryAdapter = MainCategoryAdapter(mCategoryItemTop, this)
+        mMainCategoryAdapter = MainCategoryAdapter(mCategoryItemTop, this, this)
         mRvCategoryTop.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRvCategoryTop.setHasFixedSize(true)
         mRvCategoryTop.adapter = mMainCategoryAdapter
         mRvCategoryTop.isNestedScrollingEnabled = false
 
 
-        mMainCategoryBottomAdapter = MainCategoryAdapter(mCategoryItemBottom, this)
+        mMainCategoryBottomAdapter = MainCategoryAdapter(mCategoryItemBottom, this, this)
         mRvCategoryBottom.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         mRvCategoryBottom.setHasFixedSize(true)
         mRvCategoryBottom.adapter = mMainCategoryBottomAdapter
@@ -145,6 +147,14 @@ class MainActivity : BaseActivity(), MainActivityView {
 
         getCategory()
 
+        mClHome.setOnClickListener(object  : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@MainActivity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+        })
         mClNavRecordList.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 var intent = Intent(this@MainActivity, RecordListActivity::class.java)
@@ -152,6 +162,12 @@ class MainActivity : BaseActivity(), MainActivityView {
             }
         })
         mClTrash.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                var intent = Intent(this@MainActivity, TrashActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        mNavClTrash.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 var intent = Intent(this@MainActivity, TrashActivity::class.java)
                 startActivity(intent)
@@ -244,7 +260,9 @@ class MainActivity : BaseActivity(), MainActivityView {
                 var editText:EditText = dialog.holderView.findViewById(R.id.search_edit_text)
 
                 if (view.id == R.id.search_iv) {
-                    println(editText.text.toString())
+                    if (editText.text.toString() != "") {
+                        getSearch(editText.text.toString())
+                    }
                 }
             }
         }
@@ -440,6 +458,15 @@ class MainActivity : BaseActivity(), MainActivityView {
         }
     }
 
+    override fun makeNewCategory() {
+        var dialogAddCategory = DialogAddCategory(this@MainActivity, this@MainActivity, false, "", "")
+        dialogAddCategory.show()
+        val window = dialogAddCategory.getWindow()
+        val width = (resources.displayMetrics.widthPixels * 0.80).toInt()
+        window?.setLayout(width, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+        window?.setBackgroundDrawable(resources.getDrawable(R.drawable.theme_grey2_radius20))
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -491,6 +518,32 @@ class MainActivity : BaseActivity(), MainActivityView {
             }
 
             override fun onFailure(call: Call<ResponseAddCategory>, t: Throwable) {
+                hideProgressDialog()
+                showCustomToast(resources.getString(R.string.network_error))
+            }
+        })
+    }
+
+    private fun getSearch(content: String) {
+        val api = SearchAPI.create()
+
+        api.getSearch(content).enqueue(object : Callback<ResponseSearch> {
+            override fun onResponse(call: Call<ResponseSearch>, response: Response<ResponseSearch>) {
+                var responseSearch = response.body()
+
+                if (responseSearch!!.IsSuccess() && responseSearch.getCode() == 200) {
+
+                    var intent = Intent(this@MainActivity, SearchResultActivity::class.java)
+                    intent.putExtra("SearchResult", responseSearch.getResult())
+                    startActivity(intent)
+                }
+                else {
+                    hideProgressDialog()
+                    showCustomToast(responseSearch.getMessage())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseSearch>, t: Throwable) {
                 hideProgressDialog()
                 showCustomToast(resources.getString(R.string.network_error))
             }

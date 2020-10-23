@@ -414,6 +414,11 @@ class MainActivity : BaseActivity(), MainActivityView {
 
             override fun onFailure(call: Call<ResponseUser>, t: Throwable) {
                 hideProgressDialog()
+                ApplicationClass.prefs.myEditText = ""
+                var intent = Intent(this@MainActivity, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
                 showCustomToast(resources.getString(R.string.network_error))
             }
         })

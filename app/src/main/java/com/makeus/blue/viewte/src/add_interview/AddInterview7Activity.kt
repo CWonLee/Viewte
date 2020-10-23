@@ -131,6 +131,7 @@ class AddInterview7Activity : BaseActivity() {
                     showCustomToast("답변을 입력해주세요")
                 }
                 else {
+                    showProgressDialog()
                     mStorageRef = FirebaseStorage.getInstance().reference;
                     val ref: StorageReference = mStorageRef!!.child(
                         "images/" + UUID.randomUUID().toString())
@@ -147,6 +148,7 @@ class AddInterview7Activity : BaseActivity() {
                         .addOnFailureListener(OnFailureListener {
                             // Handle unsuccessful uploads
                             // ...
+                            hideProgressDialog()
                             showCustomToast(resources.getString(R.string.network_error))
                         })
                 }
@@ -155,7 +157,6 @@ class AddInterview7Activity : BaseActivity() {
     }
 
     private fun addInterview() {
-        showProgressDialog()
 
         var requestInterviewQuestionInfo = ArrayList<RequestInterviewQuestionInfo>()
         var questionList = intent.getStringArrayListExtra("questionList")

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.makeus.blue.viewte.R
+import com.makeus.blue.viewte.src.ApplicationClass
 import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.GlideApp
 import com.makeus.blue.viewte.src.ice_break.IceBreakActivity
@@ -63,12 +64,23 @@ class PrevInterviewActivity : BaseActivity() {
         })
         mClStartInterview.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
-                var nextIntent = Intent(this@PrevInterviewActivity, IceBreakActivity::class.java)
-                nextIntent.putExtra("questionList", mQuestionList)
-                nextIntent.putExtra("interviewNo", intent.getIntExtra("interviewNo", 0))
-                nextIntent.putExtra("interviewTitle", mInterviewName)
-                nextIntent.putExtra("interviewDate", mDateString)
-                startActivity(nextIntent)
+
+                if (ApplicationClass.prefs.myIceBreak == "YES") {
+                    var nextIntent = Intent(this@PrevInterviewActivity, IceBreakActivity::class.java)
+                    nextIntent.putExtra("questionList", mQuestionList)
+                    nextIntent.putExtra("interviewNo", intent.getIntExtra("interviewNo", 0))
+                    nextIntent.putExtra("interviewTitle", mInterviewName)
+                    nextIntent.putExtra("interviewDate", mDateString)
+                    startActivity(nextIntent)
+                }
+                else {
+                    var nextIntent = Intent(this@PrevInterviewActivity, InterviewActivity::class.java)
+                    nextIntent.putExtra("questionList", mQuestionList)
+                    nextIntent.putExtra("interviewNo", intent.getIntExtra("interviewNo", 0))
+                    nextIntent.putExtra("interviewTitle", mInterviewName)
+                    nextIntent.putExtra("interviewDate", mDateString)
+                    startActivity(nextIntent)
+                }
             }
         })
     }

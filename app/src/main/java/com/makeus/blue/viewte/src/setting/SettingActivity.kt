@@ -2,10 +2,11 @@ package com.makeus.blue.viewte.src.setting
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.CompoundButton
 import android.widget.ImageView
+import android.widget.Switch
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -17,15 +18,12 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.makeus.blue.viewte.R
+import com.makeus.blue.viewte.src.AppPreferences
 import com.makeus.blue.viewte.src.ApplicationClass
+import com.makeus.blue.viewte.src.ApplicationClass.Companion.prefs
 import com.makeus.blue.viewte.src.BaseActivity
 import com.makeus.blue.viewte.src.GlideApp
-import com.makeus.blue.viewte.src.login.LoginActivity
-import com.makeus.blue.viewte.src.main.DialogAddCategory
-import com.makeus.blue.viewte.src.main.interfaces.GetCategoryAPI
 import com.makeus.blue.viewte.src.main.interfaces.GetUserAPI
-import com.makeus.blue.viewte.src.main.models.CategoryItem
-import com.makeus.blue.viewte.src.main.models.ResponseGetCategory
 import com.makeus.blue.viewte.src.main.models.ResponseUser
 import com.makeus.blue.viewte.src.setting.interfaces.PatchUserAPI
 import com.makeus.blue.viewte.src.setting.interfaces.SettingActivityView
@@ -47,6 +45,7 @@ class SettingActivity : BaseActivity(), SettingActivityView {
     private var PERMISSION_PICK_IMAGE = 1
     private var IMAGE_PICK_CODE = 2
     private var mStorageRef: StorageReference? = null
+    private lateinit var mSwitch : Switch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +53,20 @@ class SettingActivity : BaseActivity(), SettingActivityView {
 
         mIvProfile = findViewById(R.id.setting_iv_profile)
         mIvBack = findViewById(R.id.setting_iv_back_btn)
+        mSwitch = findViewById(R.id.setting_switch_ice_break)
 
         init()
+
+        mSwitch.isChecked = ApplicationClass.prefs.myIceBreak == "YES"
+
+        mSwitch.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
+            if (b) {
+                ApplicationClass.prefs.myIceBreak = "YES"
+            }
+            else {
+                ApplicationClass.prefs.myIceBreak = "NO"
+            }
+        }
 
         mIvBack.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
